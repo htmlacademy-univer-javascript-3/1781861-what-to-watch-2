@@ -1,6 +1,8 @@
 import React from 'react';
+import Footer from '../footer/footer';
+import Header from '../header/header';
 
-function MoviePage(): JSX.Element {
+function MoviePageDetails(): JSX.Element {
   return (
     <React.Fragment>
       <div className="visually-hidden"></div>
@@ -11,28 +13,7 @@ function MoviePage(): JSX.Element {
           </div>
 
           <h1 className="visually-hidden">WTW</h1>
-
-          <header className="page-header film-card__head">
-            <div className="logo">
-              <a href="main.html" className="logo__link">
-                <span className="logo__letter logo__letter--1">W</span>
-                <span className="logo__letter logo__letter--2">T</span>
-                <span className="logo__letter logo__letter--3">W</span>
-              </a>
-            </div>
-
-            <ul className="user-block">
-              <li className="user-block__item">
-                <div className="user-block__avatar">
-                  <img src="img/avatar.jpg" alt="User avatar" width="63" height="63" />
-                </div>
-              </li>
-              <li className="user-block__item">
-                <a className="user-block__link">Sign out</a>
-              </li>
-            </ul>
-          </header>
-
+          <Header />
           <div className="film-card__wrap">
             <div className="film-card__desc">
               <h2 className="film-card__title">The Grand Budapest Hotel</h2>
@@ -70,10 +51,10 @@ function MoviePage(): JSX.Element {
             <div className="film-card__desc">
               <nav className="film-nav film-card__nav">
                 <ul className="film-nav__list">
-                  <li className="film-nav__item film-nav__item--active">
+                  <li className="film-nav__item">
                     <a href="#" className="film-nav__link">Overview</a>
                   </li>
-                  <li className="film-nav__item">
+                  <li className="film-nav__item film-nav__item--active">
                     <a href="#" className="film-nav__link">Details</a>
                   </li>
                   <li className="film-nav__item">
@@ -82,22 +63,45 @@ function MoviePage(): JSX.Element {
                 </ul>
               </nav>
 
-              <div className="film-rating">
-                <div className="film-rating__score">8,9</div>
-                <p className="film-rating__meta">
-                  <span className="film-rating__level">Very good</span>
-                  <span className="film-rating__count">240 ratings</span>
-                </p>
-              </div>
+              <div className="film-card__text film-card__row">
+                <div className="film-card__text-col">
+                  <p className="film-card__details-item">
+                    <strong className="film-card__details-name">Director</strong>
+                    <span className="film-card__details-value">Wes Anderson</span>
+                  </p>
+                  <p className="film-card__details-item">
+                    <strong className="film-card__details-name">Starring</strong>
+                    <span className="film-card__details-value">
+											Bill Murray, <br />
+											Edward Norton, <br />
+											Jude Law, <br />
+											Willem Dafoe, <br />
+											Saoirse Ronan, <br />
+											Tony Revoloru, <br />
+											Tilda Swinton, <br />
+											Tom Wilkinson, <br />
+											Owen Wilkinson, <br />
+											Adrien Brody, <br />
+											Ralph Fiennes, <br />
+											Jeff Goldblum
+                    </span>
+                  </p>
+                </div>
 
-              <div className="film-card__text">
-                <p>In the 1930s, the Grand Budapest Hotel is a popular European ski resort, presided over by concierge Gustave H. (Ralph Fiennes). Zero, a junior lobby boy, becomes Gustave's friend and protege.</p>
-
-                <p>Gustave prides himself on providing first-className service to the hotel's guests, including satisfying the sexual needs of the many elderly women who stay there. When one of Gustave's lovers dies mysteriously, Gustave finds himself the recipient of a priceless painting and the chief suspect in her murder.</p>
-
-                <p className="film-card__director"><strong>Director: Wes Anderson</strong></p>
-
-                <p className="film-card__starring"><strong>Starring: Bill Murray, Edward Norton, Jude Law, Willem Dafoe and other</strong></p>
+                <div className="film-card__text-col">
+                  <p className="film-card__details-item">
+                    <strong className="film-card__details-name">Run Time</strong>
+                    <span className="film-card__details-value">1h 39m</span>
+                  </p>
+                  <p className="film-card__details-item">
+                    <strong className="film-card__details-name">Genre</strong>
+                    <span className="film-card__details-value">Comedy</span>
+                  </p>
+                  <p className="film-card__details-item">
+                    <strong className="film-card__details-name">Released</strong>
+                    <span className="film-card__details-value">2014</span>
+                  </p>
+                </div>
               </div>
             </div>
           </div>
@@ -146,23 +150,10 @@ function MoviePage(): JSX.Element {
             </article>
           </div>
         </section>
-
-        <footer className="page-footer">
-          <div className="logo">
-            <a href="main.html" className="logo__link logo__link--light">
-              <span className="logo__letter logo__letter--1">W</span>
-              <span className="logo__letter logo__letter--2">T</span>
-              <span className="logo__letter logo__letter--3">W</span>
-            </a>
-          </div>
-
-          <div className="copyright">
-            <p>© 2019 What to watch Ltd.</p>
-          </div>
-        </footer>
+        <Footer />
       </div>
     </React.Fragment>
   );
 }
 
-export default MoviePage;
+export default MoviePageDetails;

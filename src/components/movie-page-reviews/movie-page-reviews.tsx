@@ -1,4 +1,6 @@
 import React from 'react';
+import Footer from '../footer/footer';
+import Header from '../header/header';
 
 function MoviePageReviews(): JSX.Element {
   return (
@@ -12,26 +14,7 @@ function MoviePageReviews(): JSX.Element {
 
           <h1 className="visually-hidden">WTW</h1>
 
-          <header className="page-header film-card__head">
-            <div className="logo">
-              <a href="main.html" className="logo__link">
-                <span className="logo__letter logo__letter--1">W</span>
-                <span className="logo__letter logo__letter--2">T</span>
-                <span className="logo__letter logo__letter--3">W</span>
-              </a>
-            </div>
-
-            <ul className="user-block">
-              <li className="user-block__item">
-                <div className="user-block__avatar">
-                  <img src="img/avatar.jpg" alt="User avatar" width="63" height="63" />
-                </div>
-              </li>
-              <li className="user-block__item">
-                <a className="user-block__link">Sign out</a>
-              </li>
-            </ul>
-          </header>
+          <Header />
 
           <div className="film-card__wrap">
             <div className="film-card__desc">
@@ -58,6 +41,7 @@ function MoviePageReviews(): JSX.Element {
                 <a href="add-review.html" className="btn film-card__button">Add review</a>
               </div>
             </div>
+						He
           </div>
         </div>
 
@@ -86,7 +70,7 @@ function MoviePageReviews(): JSX.Element {
                 <div className="film-card__reviews-col">
                   <div className="review">
                     <blockquote className="review__quote">
-                      <p className="review__text">Discerning travellers and Wes Anderson fans will luxuriate in the glorious Mittel-European kitsch of one of the director's funniest and most exquisitely designed films in years.</p>
+                      <p className="review__text">Discerning travellers and Wes Anderson fans will luxuriate in the glorious Mittel-European kitsch of one of the director&quot;s funniest and most exquisitely designed films in years.</p>
 
                       <footer className="review__details">
                         <cite className="review__author">Kate Muir</cite>
@@ -99,7 +83,7 @@ function MoviePageReviews(): JSX.Element {
 
                   <div className="review">
                     <blockquote className="review__quote">
-                      <p className="review__text">Anderson's films are too precious for some, but for those of us willing to lose ourselves in them, they're a delight. "The Grand Budapest Hotel" is no different, except that he has added a hint of gravitas to the mix, improving the recipe.</p>
+                      <p className="review__text">Anderson&quot;s films are too precious for some, but for those of us willing to lose ourselves in them, they&quot;re a delight. &rdquo;The Grand Budapest Hotel&rdquo; is no different, except that he has added a hint of gravitas to the mix, improving the recipe.</p>
 
                       <footer className="review__details">
                         <cite className="review__author">Bill Goodykoontz</cite>
@@ -112,7 +96,7 @@ function MoviePageReviews(): JSX.Element {
 
                   <div className="review">
                     <blockquote className="review__quote">
-                      <p className="review__text">I didn't find it amusing, and while I can appreciate the creativity, it's an hour and 40 minutes I wish I could take back.</p>
+                      <p className="review__text">I didn&quot;t find it amusing, and while I can appreciate the creativity, it&quot;s an hour and 40 minutes I wish I could take back.</p>
 
                       <footer className="review__details">
                         <cite className="review__author">Amanda Greever</cite>
@@ -211,20 +195,7 @@ function MoviePageReviews(): JSX.Element {
             </article>
           </div>
         </section>
-
-        <footer className="page-footer">
-          <div className="logo">
-            <a href="main.html" className="logo__link logo__link--light">
-              <span className="logo__letter logo__letter--1">W</span>
-              <span className="logo__letter logo__letter--2">T</span>
-              <span className="logo__letter logo__letter--3">W</span>
-            </a>
-          </div>
-
-          <div className="copyright">
-            <p>© 2019 What to watch Ltd.</p>
-          </div>
-        </footer>
+        <Footer />
       </div>
     </React.Fragment>
   );
