@@ -1,4 +1,3 @@
-import React from 'react';
 import Logo from '../logo/logo';
 
 export default function Footer(): JSX.Element {

@@ -1,4 +1,4 @@
-import React, { ChangeEvent, FormEvent, Fragment, useState } from 'react';
+import { ChangeEvent, FormEvent, Fragment, useState } from 'react';
 
 type ReviewFormProps = {
 	onSubmit: () => void;
@@ -41,9 +41,7 @@ export default function AddReviewForm({ onSubmit }: ReviewFormProps): JSX.Elemen
             {RATINGS.map((rating) => (
               <Fragment key={rating}>
                 <input className="rating__input" id={`star-${rating}`} type="radio" name="rating" value={rating.toString()} checked={review.rating === rating} onChange={handleRatingChange} />
-                <label className="rating__label" htmlFor={`star-${rating}`}>
-										Rating {rating}
-                </label>
+                <label className="rating__label" htmlFor={`star-${rating}`}>Rating {rating}</label>
               </Fragment>
             ))}
           </div>

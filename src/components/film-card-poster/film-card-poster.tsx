@@ -1,4 +1,3 @@
-import React from 'react';
 import './film-card-poster.css';
 
 type FilmCardPosterProps = {

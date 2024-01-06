@@ -42,7 +42,7 @@ export default function AddReview({ films }: AddReviewProps): JSX.Element {
         </header>
         <FilmCardPoster size={'small'} src={film.backgroundImg} alt={film.alt} />
       </div>
-      <AddReviewForm onSubmit={() => console.log('Yep')} />
+      <AddReviewForm onSubmit={() => { }} />
     </section>
   );
 }
