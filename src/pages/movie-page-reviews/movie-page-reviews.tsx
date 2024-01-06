@@ -1,34 +1,42 @@
 import React from 'react';
-import Footer from '../footer/footer';
-import Header from '../header/header';
+import { Navigate, useParams } from 'react-router-dom';
+import { IFilmDetailsProps } from '../../types/film-type';
+import { AppRoute } from '../../enums/AppRoute';
 
-export default function MoviePageReviews(): JSX.Element {
+type MoviePageProps = {
+	films: IFilmDetailsProps[];
+}
+
+export default function MoviePageReviews({ films }: MoviePageProps): JSX.Element {
+  const { id = '' } = useParams();
+  const film = films.find((f) => f.id === Number(id));
+  if (!film) {
+    return <Navigate to={AppRoute.NotFound} />;
+  }
   return (
     <React.Fragment>
       <section className="film-card film-card--full">
-        <div className="film-card__hero">
-          <div className="film-card__bg">
-            <img src="img/bg-the-grand-budapest-hotel.jpg" alt="The Grand Budapest Hotel" />
-          </div>
-          <h1 className="visually-hidden">WTW</h1>
-          <Header />
-          <div className="film-card__wrap">
-            <div className="film-card__desc">
-              <h2 className="film-card__title">The Grand Budapest Hotel</h2>
-              <p className="film-card__meta">
-                <span className="film-card__genre">Drama</span>
-                <span className="film-card__year">2014</span>
-              </p>
-            </div>
-          </div>
-        </div>
+        {/* <div className="film-card__hero">
+					<div className="film-card__bg">
+						<img src="img/bg-the-grand-budapest-hotel.jpg" alt="The Grand Budapest Hotel" />
+					</div>
+					<h1 className="visually-hidden">WTW</h1>
+					<Header />
+					<div className="film-card__wrap">
+						<div className="film-card__desc">
+							<h2 className="film-card__title">The Grand Budapest Hotel</h2>
+							<p className="film-card__meta">
+								<span className="film-card__genre">Drama</span>
+								<span className="film-card__year">2014</span>
+							</p>
+						</div>
+					</div>
+				</div> */}
         <div className="film-card__wrap film-card__translate-top">
           <div className="film-card__info">
-            {/* <div className="film-card__poster film-card__poster--big">
-							<img src="img/the-grand-budapest-hotel-poster.jpg" alt="The Grand Budapest Hotel poster" width="218" height="327" />
-						</div> */}
+            {/* <FilmCardPoster src={film.backgroundImg} alt={film.alt} /> */}
             <div className="film-card__desc">
-              <nav className="film-nav film-card__nav">
+              {/* <nav className="film-nav film-card__nav">
                 <ul className="film-nav__list">
                   <li className="film-nav__item">
                     <a href="#" className="film-nav__link">Overview</a>
@@ -40,7 +48,7 @@ export default function MoviePageReviews(): JSX.Element {
                     <a href="#" className="film-nav__link">Reviews</a>
                   </li>
                 </ul>
-              </nav>
+              </nav> */}
               <div className="film-card__reviews film-card__row">
                 <div className="film-card__reviews-col">
                   <div className="review">
@@ -112,49 +120,13 @@ export default function MoviePageReviews(): JSX.Element {
           </div>
         </div>
       </section>
-      <div className="page-content">
+      {/* <div className="page-content">
         <section className="catalog catalog--like-this">
           <h2 className="catalog__title">More like this</h2>
-          {/* <div className="catalog__films-list">
-						<article className="small-film-card catalog__films-card">
-							<div className="small-film-card__image">
-								<img src="img/fantastic-beasts-the-crimes-of-grindelwald.jpg" alt="Fantastic Beasts: The Crimes of Grindelwald" width="280" height="175" />
-							</div>
-							<h3 className="small-film-card__title">
-								<a className="small-film-card__link" href="film-page.html">Fantastic Beasts: The Crimes of Grindelwald</a>
-							</h3>
-						</article>
-
-						<article className="small-film-card catalog__films-card">
-							<div className="small-film-card__image">
-								<img src="img/bohemian-rhapsody.jpg" alt="Bohemian Rhapsody" width="280" height="175" />
-							</div>
-							<h3 className="small-film-card__title">
-								<a className="small-film-card__link" href="film-page.html">Bohemian Rhapsody</a>
-							</h3>
-						</article>
-
-						<article className="small-film-card catalog__films-card">
-							<div className="small-film-card__image">
-								<img src="img/macbeth.jpg" alt="Macbeth" width="280" height="175" />
-							</div>
-							<h3 className="small-film-card__title">
-								<a className="small-film-card__link" href="film-page.html">Macbeth</a>
-							</h3>
-						</article>
-
-						<article className="small-film-card catalog__films-card">
-							<div className="small-film-card__image">
-								<img src="img/aviator.jpg" alt="Aviator" width="280" height="175" />
-							</div>
-							<h3 className="small-film-card__title">
-								<a className="small-film-card__link" href="film-page.html">Aviator</a>
-							</h3>
-						</article>
-					</div> */}
+          <FilmsList films={films} />
         </section>
         <Footer />
-      </div>
+      </div> */}
     </React.Fragment>
   );
 }

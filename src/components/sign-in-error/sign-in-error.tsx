@@ -1,4 +1,3 @@
-import React from 'react';
 import Footer from '../footer/footer';
 import Logo from '../logo/logo';
 

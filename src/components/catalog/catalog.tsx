@@ -1,9 +1,9 @@
-import Card from '../card/card';
 import GenresList from '../genre-list/genre-list';
-import { FilmDetailsProps } from '../../types/film-type';
+import { IFilmDetailsProps } from '../../types/film-type';
+import FilmsList from '../film-list/film-list';
 
 type CatalogProps = {
-	films: FilmDetailsProps[];
+	films: IFilmDetailsProps[];
 }
 
 export default function Catalog({ films }: CatalogProps): JSX.Element {
@@ -11,11 +11,7 @@ export default function Catalog({ films }: CatalogProps): JSX.Element {
     <section className="catalog">
       <h2 className="catalog__title visually-hidden">Catalog</h2>
       <GenresList />
-      <div className="catalog__films-list">
-        {films.map((film) => (
-          <Card key={film.name} film={film} />
-        ))}
-      </div>
+      <FilmsList films={films} />
       <div className="catalog__more">
         <button className="catalog__button" type="button">Show more</button>
       </div>

@@ -2,13 +2,13 @@ import React from 'react';
 import Footer from '../../components/footer/footer';
 import Catalog from '../../components/catalog/catalog';
 import FilmCard from '../../components/film-card/film-card';
-import { FilmDetailsProps } from '../../types/film-type';
+import { IFilmDetailsProps } from '../../types/film-type';
 
-interface MainPageProps {
-	films: FilmDetailsProps[];
+interface IMainPageProps {
+	films: IFilmDetailsProps[];
 }
 
-export default function MainPage({ films }: MainPageProps): JSX.Element {
+export default function MainPage({ films }: IMainPageProps): JSX.Element {
   return (
     <React.Fragment>
       <FilmCard film={films[0]} />

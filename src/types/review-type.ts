@@ -1,4 +1,4 @@
-export interface ReviewProps {
+export interface IReviewProps {
 	id: string;
 	date: string | Date;
 	user: string;

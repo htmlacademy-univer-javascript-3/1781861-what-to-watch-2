@@ -1,17 +1,31 @@
-import React from 'react';
+import { useState } from 'react';
 import Card from '../card/card';
-import { FilmDetailsProps } from '../../types/film-type';
+import { IFilmDetailsProps } from '../../types/film-type';
+import { FilmList as filmsList } from '../../mocks/films';
 
 type FilmListProps = {
-	films: FilmDetailsProps[];
-	length?: number;
+	films: IFilmDetailsProps[];
 };
 
-export default function FilmsList({ films, length = 4, }: FilmListProps): JSX.Element {
+export default function FilmsList({ films = filmsList }: FilmListProps): JSX.Element {
+  const [activeFilm, setActiveFilm] = useState<number | null>(null);
+  const handleCardHover = (id: number) => {
+    setActiveFilm(id);
+  };
+  const handleCardLeave = () => {
+    setActiveFilm(null);
+  };
+
   return (
     <div className="catalog__films-list">
-      {films.splice(0, length + 1).map((film) => (
-        <Card film={film} key={film.name} />
+      {films.map((film) => (
+        <Card
+          film={film}
+          key={film.name}
+          isActive={film.id === activeFilm}
+          onMouseEnter={handleCardHover}
+          onMouseLeave={handleCardLeave}
+        />
       ))}
     </div>
   );

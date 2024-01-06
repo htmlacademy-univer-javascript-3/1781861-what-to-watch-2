@@ -4,11 +4,11 @@ import Footer from '../../components/footer/footer';
 import Header from '../../components/header/header';
 import FilmCardPoster from '../../components/film-card-poster/film-card-poster';
 import FilmsList from '../../components/film-list/film-list';
-import { FilmDetailsProps } from '../../types/film-type';
+import { IFilmDetailsProps } from '../../types/film-type';
 import { AppRoute } from '../../enums/AppRoute';
 
 type MoviePageProps = {
-	films: FilmDetailsProps[];
+	films: IFilmDetailsProps[];
 }
 
 export default function MoviePage({ films }: MoviePageProps): JSX.Element {

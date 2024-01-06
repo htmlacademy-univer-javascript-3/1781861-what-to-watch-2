@@ -1,11 +1,11 @@
-export interface FilmProps {
+export interface IFilmProps {
 	id: number;
 	name: string;
 	postImg: string;
 	alt: string;
 }
 
-export interface FilmDetailsProps extends FilmProps {
+export interface IFilmDetailsProps extends IFilmProps {
 	backgroundImg: string;
 	backgroundColor: string;
 	videoLink: string;
