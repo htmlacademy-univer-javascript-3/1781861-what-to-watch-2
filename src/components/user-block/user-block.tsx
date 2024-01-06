@@ -1,4 +1,3 @@
-import React from 'react';
 import './user-block.css';
 import { Link } from 'react-router-dom';
 import { AppRoute } from '../../enums/AppRoute';
