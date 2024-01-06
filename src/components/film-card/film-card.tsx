@@ -1,10 +1,10 @@
 import FilmCardButton from '../film-card-btn/film-card-btn';
 import Header from '../header/header';
 import FilmCardPoster from '../film-card-poster/film-card-poster';
-import { FilmDetailsProps } from '../../types/film-type';
+import { IFilmDetailsProps } from '../../types/film-type';
 
 type FilmCardProps = {
-	film: FilmDetailsProps;
+	film: IFilmDetailsProps;
 };
 
 export default function FilmCard({ film }: FilmCardProps): JSX.Element {

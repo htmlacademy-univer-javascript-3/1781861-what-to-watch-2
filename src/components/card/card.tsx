@@ -1,22 +1,36 @@
-import React from 'react';
+import { useCallback } from 'react';
 import { Link } from 'react-router-dom';
 import './card.css';
-import { FilmDetailsProps } from '../../types/film-type';
+import { IFilmDetailsProps } from '../../types/film-type';
 import { AppRoute } from '../../enums/AppRoute';
+import VideoPlayer from '../videoplayer/videoplayer';
 
 
 type CardProps = {
-	film: FilmDetailsProps;
+	film: IFilmDetailsProps;
+	isActive?: boolean;
+	isMuted?: boolean;
+	onMouseEnter: (id: number) => void;
+	onMouseLeave: () => void;
 }
 
-export default function Card({ film }: CardProps): JSX.Element {
+export default function Card({ film, isActive = false, isMuted = true, onMouseEnter, onMouseLeave }: CardProps): JSX.Element {
+  const { name, postImg, alt, id, videoLink, backgroundImg } = film;
+  const handleMouseEnter = useCallback(() => {
+    onMouseEnter(id);
+  }, [id, onMouseEnter]);
+
   return (
-    <article className="small-film-card catalog__films-card">
+    <article className="small-film-card catalog__films-card" onMouseEnter={handleMouseEnter} onMouseLeave={onMouseLeave} data-active={isActive}>
       <div className="small-film-card__image">
-        <img src={film.postImg} alt={film.alt} />
+        {isActive ? (
+          <VideoPlayer posterImg={backgroundImg} link={videoLink} isMuted={isMuted} />
+        ) : (
+          <img src={postImg} alt={alt} />
+        )}
       </div>
       <h3 className="small-film-card__title">
-        <Link to={`${AppRoute.Films}/${film.id}`} className="small-film-card__link">{film.name}</Link>
+        <Link to={`${AppRoute.Films}/${film.id}`} className="small-film-card__link">{name}</Link>
       </h3>
     </article>
   );

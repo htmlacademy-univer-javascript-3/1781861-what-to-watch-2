@@ -1,6 +1,6 @@
-import { ReviewProps } from '../types/review-type';
+import { IReviewProps } from '../types/review-type';
 
-export const reviewDetails: ReviewProps[] = [
+export const reviewDetails: IReviewProps[] = [
   {
     id: 'ac8adb38-0cfa-4585-a767-d3afcc557a05',
     date: '2023-05-25T12:00:00.000Z',

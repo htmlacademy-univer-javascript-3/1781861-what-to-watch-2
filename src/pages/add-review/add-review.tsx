@@ -3,12 +3,12 @@ import { Link, Navigate, useParams } from 'react-router-dom';
 import UserBlock from '../../components/user-block/user-block';
 import Logo from '../../components/logo/logo';
 import FilmCardPoster from '../../components/film-card-poster/film-card-poster';
-import { FilmDetailsProps } from '../../types/film-type';
+import { IFilmDetailsProps } from '../../types/film-type';
 import { AppRoute } from '../../enums/AppRoute';
 import AddReviewForm from '../../components/add-review-form/add-review-form';
 
 type AddReviewProps = {
-	films: FilmDetailsProps[];
+	films: IFilmDetailsProps[];
 };
 
 export default function AddReview({ films }: AddReviewProps): JSX.Element {

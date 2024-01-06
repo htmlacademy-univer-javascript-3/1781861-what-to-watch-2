@@ -1,6 +1,6 @@
-import { FilmDetailsProps } from '../types/film-type';
+import { IFilmDetailsProps } from '../types/film-type';
 
-export const FilmList: FilmDetailsProps[] = [
+export const FilmList: IFilmDetailsProps[] = [
   {
     id: 1,
     name: 'Fantastic Beasts: The Crimes of Grindelwald',
