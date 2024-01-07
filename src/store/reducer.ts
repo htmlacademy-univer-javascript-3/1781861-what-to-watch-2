@@ -1,8 +1,8 @@
 import { createReducer, PayloadAction } from '@reduxjs/toolkit';
-import { ALL_GENRES } from '../../const/genres';
-import { FilmList as filmsList } from '../../mocks/films';
+import { ALL_GENRES } from '../const/genres';
+import { FilmList as filmsList } from '../mocks/films';
 import { getMoviesGenre, setActiveGenre } from './action';
-import { IFilmDetailsProps } from '../../types/film-type';
+import { IFilmDetailsProps } from '../types/film-type';
 
 interface IState {
 	films: IFilmDetailsProps[];
