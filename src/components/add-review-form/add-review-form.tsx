@@ -1,7 +1,11 @@
-import { ChangeEvent, FormEvent, Fragment, useState } from 'react';
+import { ChangeEvent, FormEvent, Fragment, useState, useCallback } from 'react';
+import { Navigate } from 'react-router-dom';
+import { useAppDispatch } from '../../hook/store';
+import { addCommentAction } from '../../store/api-actions';
+import { AppRoute } from '../../enums/AppRoute';
 
 type ReviewFormProps = {
-	onSubmit: () => void;
+	movieId: string;
 };
 
 const DEFAULT_FORM_VALUE = {
@@ -12,9 +16,9 @@ const DEFAULT_FORM_VALUE = {
   rating: 7.2,
 };
 
-export default function AddReviewForm({ onSubmit }: ReviewFormProps): JSX.Element {
+export default function AddReviewForm({ movieId }: ReviewFormProps): JSX.Element {
+  const dispatch = useAppDispatch();
   const RATINGS = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
-
   const [review, setReview] = useState({
     ...DEFAULT_FORM_VALUE,
   });
@@ -33,9 +37,23 @@ export default function AddReviewForm({ onSubmit }: ReviewFormProps): JSX.Elemen
     });
   }
 
+  const handleSubmit = useCallback(
+    (evt: FormEvent<HTMLFormElement>) => {
+      evt.preventDefault();
+      dispatch(addCommentAction({
+        movieId: movieId,
+        comment: review.comment,
+        rating: review.rating
+      }));
+    }, []);
+
+  if (!movieId) {
+    return <Navigate to={AppRoute.NotFound} />;
+  }
+
   return (
     <div className="add-review">
-      <form action="#" className="add-review__form">
+      <form action="#" className="add-review__form" onSubmit={handleSubmit}>
         <div className="rating">
           <div className="rating__stars">
             {RATINGS.map((rating) => (
@@ -47,16 +65,9 @@ export default function AddReviewForm({ onSubmit }: ReviewFormProps): JSX.Elemen
           </div>
         </div>
         <div className="add-review__text">
-          <textarea className="add-review__textarea"
-            name="review-text" id="review-text" placeholder="Review text" value={review.comment} onChange={handleTextAreaChange}
-          />
+          <textarea className="add-review__textarea" name="review-text" id="review-text" placeholder="Review text" value={review.comment} onChange={handleTextAreaChange} />
           <div className="add-review__submit">
-            <button className="add-review__btn" type="submit" onSubmit={(evt: FormEvent<HTMLButtonElement>) => {
-              evt.preventDefault();
-              onSubmit();
-            }}
-            > Post
-            </button>
+            <button className="add-review__btn" type="submit">Post</button>
           </div>
         </div>
       </form>

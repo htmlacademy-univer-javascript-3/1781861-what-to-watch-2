@@ -7,18 +7,23 @@ import FilmsList from '../../components/film-list/film-list';
 import { AppRoute } from '../../enums/AppRoute';
 import Tabs from '../../components/tabs/tabs';
 import { useAppDispatch, useAppSelector } from '../../hook/store';
-import { fetchFilmByIdAction } from '../../store/api-actions';
+import { fetchFilmByIdAction, fetchFilmReviewsAction, fetchSimilarFilmsAction } from '../../store/api-actions';
 import { Spinner } from '../../components/spinner/spinner';
+import { AuthStatus } from '../../enums/AuthStatus';
 
 export default function MoviePage(): JSX.Element {
   const { id = '' } = useParams();
   const dispatch = useAppDispatch();
   const film = useAppSelector((state) => state.currentFilm);
   const isLoading = useAppSelector((state) => state.isLoadingFilm);
+  const authStatus = useAppSelector((state) => state.authStatus);
+  const isAuth = authStatus === AuthStatus.Auth;
 
   useEffect(() => {
     if (id) {
       dispatch(fetchFilmByIdAction(id));
+      dispatch(fetchSimilarFilmsAction(id));
+      dispatch(fetchFilmReviewsAction(id));
     }
   }, [id, dispatch]);
 
@@ -61,9 +66,9 @@ export default function MoviePage(): JSX.Element {
                   <span>My list</span>
                   <span className="film-card__count">9</span>
                 </button>
-                <Link to={`${AppRoute.Films}/${film.id}${AppRoute.Review}`} className="btn film-card__button">
-									Add review
-                </Link>
+                {isAuth && (
+                  <Link to={`${AppRoute.Films}/${film.id}${AppRoute.Review}`} className="btn film-card__button"> Add review </Link>
+                )}
               </div>
             </div>
           </div>
