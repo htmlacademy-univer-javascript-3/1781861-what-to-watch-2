@@ -1,19 +1,30 @@
+import { useEffect } from 'react';
 import './add-review.css';
 import { Link, Navigate, useParams } from 'react-router-dom';
 import UserBlock from '../../components/user-block/user-block';
 import Logo from '../../components/logo/logo';
 import FilmCardPoster from '../../components/film-card-poster/film-card-poster';
-import { IFilmDetailsProps } from '../../types/film-type';
 import { AppRoute } from '../../enums/AppRoute';
 import AddReviewForm from '../../components/add-review-form/add-review-form';
+import { useAppDispatch, useAppSelector } from '../../hook/store';
+import { fetchFilmByIdAction } from '../../store/api-actions';
+import { Spinner } from '../../components/spinner/spinner';
 
-type AddReviewProps = {
-	films: IFilmDetailsProps[];
-};
-
-export default function AddReview({ films }: AddReviewProps): JSX.Element {
+export default function AddReview(): JSX.Element {
   const { id = '' } = useParams();
-  const film = films.find((f) => f.id === Number(id));
+  const dispatch = useAppDispatch();
+  const film = useAppSelector((state) => state.currentFilm);
+  const isLoading = useAppSelector((state) => state.isLoadingFilm);
+
+  useEffect(() => {
+    if (id) {
+      dispatch(fetchFilmByIdAction(id));
+    }
+  }, [id, dispatch]);
+
+  if (isLoading && !film) {
+    return <Spinner />;
+  }
 
   if (!film) {
     return <Navigate to={AppRoute.NotFound} />;
@@ -23,7 +34,7 @@ export default function AddReview({ films }: AddReviewProps): JSX.Element {
     <section className="film-card film-card--full">
       <div className="film-card__header">
         <div className="film-card__bg">
-          <img src="img/bg-the-grand-budapest-hotel.jpg" alt="The Grand Budapest Hotel" />
+          <img src={film.backgroundImg} alt={film.name} />
         </div>
         <h1 className="visually-hidden">WTW</h1>
         <header className="page-header">
@@ -40,7 +51,7 @@ export default function AddReview({ films }: AddReviewProps): JSX.Element {
           </nav>
           <UserBlock />
         </header>
-        <FilmCardPoster size={'small'} src={film.backgroundImg} alt={film.alt} />
+        <FilmCardPoster size={'small'} src={film.backgroundImg} alt={film.name} />
       </div>
       <AddReviewForm onSubmit={() => { }} />
     </section>

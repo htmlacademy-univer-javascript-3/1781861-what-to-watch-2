@@ -1,12 +1,12 @@
 import { useEffect, useRef } from 'react';
 
 interface IVideoPlayerProps {
-	posterImg: string;
+	postImg: string;
 	link: string;
 	isMuted: boolean;
 }
 
-export default function VideoPlayer({ posterImg, link, isMuted }: IVideoPlayerProps): JSX.Element {
+export default function VideoPlayer({ postImg, link, isMuted }: IVideoPlayerProps): JSX.Element {
   const videoRef = useRef<HTMLVideoElement>(null);
 
   useEffect(() => {
@@ -16,7 +16,7 @@ export default function VideoPlayer({ posterImg, link, isMuted }: IVideoPlayerPr
   }, []);
 
   return (
-    <video className="player__video" ref={videoRef} src={link} poster={posterImg} muted={isMuted} loop>
+    <video className="player__video" ref={videoRef} src={link} poster={postImg} muted={isMuted} loop>
       <source src={link} type="video/mp4" />
     </video>
   );

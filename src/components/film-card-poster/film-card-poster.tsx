@@ -6,7 +6,7 @@ type FilmCardPosterProps = {
 	alt?: string;
 };
 
-export default function FilmCardPoster({ size = '', src = '', alt = '', }: FilmCardPosterProps): JSX.Element {
+function FilmCardPoster({ size = '', src = '', alt = '', }: FilmCardPosterProps): JSX.Element {
   const computedClass = `film-card__poster ${size ? `film-card__poster--${size}` : ''
   }`;
   return (
@@ -15,3 +15,5 @@ export default function FilmCardPoster({ size = '', src = '', alt = '', }: FilmC
     </div>
   );
 }
+
+export default FilmCardPoster;

@@ -1,20 +1,31 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Link, Navigate, useParams } from 'react-router-dom';
 import Footer from '../../components/footer/footer';
 import Header from '../../components/header/header';
 import FilmCardPoster from '../../components/film-card-poster/film-card-poster';
 import FilmsList from '../../components/film-list/film-list';
-import { IFilmDetailsProps } from '../../types/film-type';
 import { AppRoute } from '../../enums/AppRoute';
 import Tabs from '../../components/tabs/tabs';
+import { useAppDispatch, useAppSelector } from '../../hook/store';
+import { fetchFilmByIdAction } from '../../store/api-actions';
+import { Spinner } from '../../components/spinner/spinner';
 
-type MoviePageProps = {
-	films: IFilmDetailsProps[];
-}
-
-export default function MoviePage({ films }: MoviePageProps): JSX.Element {
+export default function MoviePage(): JSX.Element {
   const { id = '' } = useParams();
-  const film = films.find((f) => f.id === Number(id));
+  const dispatch = useAppDispatch();
+  const film = useAppSelector((state) => state.currentFilm);
+  const isLoading = useAppSelector((state) => state.isLoadingFilm);
+
+  useEffect(() => {
+    if (id) {
+      dispatch(fetchFilmByIdAction(id));
+    }
+  }, [id, dispatch]);
+
+  if (isLoading && !film) {
+    return <Spinner />;
+  }
+
   if (!film) {
     return <Navigate to={AppRoute.NotFound} />;
   }
@@ -24,7 +35,7 @@ export default function MoviePage({ films }: MoviePageProps): JSX.Element {
       <section className="film-card film-card--full">
         <div className="film-card__hero">
           <div className="film-card__bg">
-            <img src="img/bg-the-grand-budapest-hotel.jpg" alt="The Grand Budapest Hotel" />
+            <img src={film.postImg} alt={film.name} />
           </div>
 
           <h1 className="visually-hidden">WTW</h1>
@@ -59,7 +70,7 @@ export default function MoviePage({ films }: MoviePageProps): JSX.Element {
         </div>
         <div className="film-card__wrap film-card__translate-top">
           <div className="film-card__info">
-            <FilmCardPoster src={film.backgroundImg} alt={film.alt} />
+            <FilmCardPoster src={film.backgroundImg} alt={film.name} />
             <Tabs film={film} />
           </div>
         </div>
