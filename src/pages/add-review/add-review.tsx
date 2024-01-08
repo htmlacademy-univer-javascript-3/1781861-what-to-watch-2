@@ -53,7 +53,7 @@ export default function AddReview(): JSX.Element {
         </header>
         <FilmCardPoster size={'small'} src={film.backgroundImg} alt={film.name} />
       </div>
-      <AddReviewForm onSubmit={() => { }} />
+      <AddReviewForm movieId={film.id} />
     </section>
   );
 }

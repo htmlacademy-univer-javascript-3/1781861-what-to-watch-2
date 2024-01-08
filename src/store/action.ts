@@ -1,6 +1,8 @@
 import { createAction } from '@reduxjs/toolkit';
 import { IFilmProps, IFilmDetailsProps, IFilmPromo } from '../types/film-type';
 import { IReviewProps } from '../types/review-type';
+import { AuthStatus } from '../enums/AuthStatus';
+import { AppRoute } from '../enums/AppRoute';
 
 export const setActiveGenre = createAction<{ genre: string }>('setActiveGenre');
 
@@ -21,3 +23,7 @@ export const fetchSimilarFilms = createAction<IFilmProps[]>('fetchSimilarFilmsAc
 export const setIsLoadingFilms = createAction<boolean>('setIsLoadingFilms');
 
 export const setIsLoadingFilm = createAction<boolean>('setIsLoadingFilm');
+
+export const setAuthStatus = createAction<AuthStatus>('checkAuthStatus');
+
+export const redirectToRoute = createAction<AppRoute | string>('redirectToRoute');
