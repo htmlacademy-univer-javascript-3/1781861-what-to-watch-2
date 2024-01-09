@@ -10,13 +10,15 @@ import { useAppDispatch, useAppSelector } from '../../hook/store';
 import { fetchFilmByIdAction, fetchFilmReviewsAction, fetchSimilarFilmsAction } from '../../store/api-actions';
 import { Spinner } from '../../components/spinner/spinner';
 import { AuthStatus } from '../../enums/AuthStatus';
+import { getFilm, getIsLoadingFilm } from '../../store/movie-process/movie-process.selectors';
+import { getAuthStatus } from '../../store/user-process/user-process.selectors';
 
 export default function MoviePage(): JSX.Element {
   const { id = '' } = useParams();
   const dispatch = useAppDispatch();
-  const film = useAppSelector((state) => state.currentFilm);
-  const isLoading = useAppSelector((state) => state.isLoadingFilm);
-  const authStatus = useAppSelector((state) => state.authStatus);
+  const film = useAppSelector(getFilm);
+  const isLoading = useAppSelector(getIsLoadingFilm);
+  const authStatus = useAppSelector(getAuthStatus);
   const isAuth = authStatus === AuthStatus.Auth;
 
   useEffect(() => {
@@ -40,7 +42,7 @@ export default function MoviePage(): JSX.Element {
       <section className="film-card film-card--full">
         <div className="film-card__hero">
           <div className="film-card__bg">
-            <img src={film.postImg} alt={film.name} />
+            <img src={film.posterImage} alt={film.name} />
           </div>
 
           <h1 className="visually-hidden">WTW</h1>
@@ -75,7 +77,7 @@ export default function MoviePage(): JSX.Element {
         </div>
         <div className="film-card__wrap film-card__translate-top">
           <div className="film-card__info">
-            <FilmCardPoster src={film.backgroundImg} alt={film.name} />
+            <FilmCardPoster src={film.backgroundImage} alt={film.name} />
             <Tabs film={film} />
           </div>
         </div>
@@ -83,7 +85,7 @@ export default function MoviePage(): JSX.Element {
       <div className="page-content">
         <section className="catalog catalog--like-this">
           <h2 className="catalog__title">More like this</h2>
-          <FilmsList length={4} genre={film.genre} />
+          <FilmsList length={4} />
         </section>
         <Footer />
       </div>

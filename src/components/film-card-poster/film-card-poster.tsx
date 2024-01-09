@@ -1,3 +1,4 @@
+import React from 'react';
 import './film-card-poster.css';
 
 type FilmCardPosterProps = {
@@ -16,4 +17,6 @@ function FilmCardPoster({ size = '', src = '', alt = '', }: FilmCardPosterProps)
   );
 }
 
-export default FilmCardPoster;
+const MovieCardPosterMemo = React.memo(FilmCardPoster);
+
+export default MovieCardPosterMemo;

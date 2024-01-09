@@ -1,14 +1,13 @@
 import Logo from '../../components/logo/logo';
 import Footer from '../../components/footer/footer';
 import UserBlock from '../../components/user-block/user-block';
-import { IFilmDetailsProps } from '../../types/film-type';
 import FilmsList from '../../components/film-list/film-list';
+import { useAppSelector } from '../../hook/store';
+import { getFilms } from '../../store/movies-process/movies-process.selectors';
 
-type MyListProps = {
-	films: IFilmDetailsProps[];
-}
 
-export default function MyList({ films }: MyListProps): JSX.Element {
+export default function MyList(): JSX.Element {
+  const films = useAppSelector(getFilms);
   return (
     <div className="user-page">
       <header className="page-header user-page__head">
@@ -20,7 +19,7 @@ export default function MyList({ films }: MyListProps): JSX.Element {
       </header>
       <section className='catalog'>
         <h2 className="catalog__title visually-hidden">Catalog</h2>
-        <FilmsList films={films} />
+        <FilmsList />
       </section>
       <Footer />
     </div>

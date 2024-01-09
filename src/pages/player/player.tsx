@@ -3,11 +3,12 @@ import { Navigate, useParams } from 'react-router-dom';
 import { AppRoute } from '../../enums/AppRoute';
 import { useAppDispatch, useAppSelector } from '../../hook/store';
 import { fetchFilmByIdAction } from '../../store/api-actions';
+import { getFilm } from '../../store/movie-process/movie-process.selectors';
 
 export default function Player(): JSX.Element {
   const { id = '' } = useParams();
   const dispatch = useAppDispatch();
-  const film = useAppSelector((state) => state.currentFilm);
+  const film = useAppSelector(getFilm);
 
   useEffect(() => {
     if (id) {
@@ -20,7 +21,7 @@ export default function Player(): JSX.Element {
   }
   return (
     <div className="player">
-      <video src={film.videoLink} className="player__video" poster={film.postImg}></video>
+      <video src={film.videoLink} className="player__video" poster={film.posterImage}></video>
       <button type="button" className="player__exit">Exit</button>
       <div className="player__controls">
         <div className="player__controls-row">

@@ -1,3 +1,4 @@
+import React from 'react';
 import FilmCardButton from '../film-card-btn/film-card-btn';
 import Header from '../header/header';
 import FilmCardPoster from '../film-card-poster/film-card-poster';
@@ -7,17 +8,17 @@ type FilmCardProps = {
 	film: IFilmPromo;
 };
 
-export default function FilmCard({ film }: FilmCardProps): JSX.Element {
+function FilmCard({ film }: FilmCardProps): JSX.Element {
   return (
     <section className="film-card">
       <div className="film-card__bg">
-        <img src={film.postImg} alt={film.name} />
+        <img src={film.backgroundImage} alt={film.name} />
       </div>
       <h1 className="visually-hidden">WTW</h1>
       <Header />
       <div className="film-card__wrap">
         <div className="film-card__info">
-          <FilmCardPoster src={film.backgroundImg} alt={film.name} />
+          <FilmCardPoster src={film.backgroundImage} alt={film.name} />
           <div className="film-card__desc">
             <h2 className="film-card__title">{film.name}</h2>
             <p className="film-card__meta">
@@ -31,3 +32,7 @@ export default function FilmCard({ film }: FilmCardProps): JSX.Element {
     </section>
   );
 }
+
+const MovieCardMemo = React.memo(FilmCard);
+
+export default MovieCardMemo;

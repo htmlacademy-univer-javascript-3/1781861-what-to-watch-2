@@ -1,33 +1,38 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import Card from '../card/card';
 import { MOVIES_LIST_LENGTH } from '../../const/movies-list';
 import { useAppSelector } from '../../hook/store';
 import { Spinner } from '../spinner/spinner';
+import { IFilmProps } from '../../types/film-type';
+import { getFilmsByGenre, getIsLoadingList } from '../../store/movies-process/movies-process.selectors';
 
-type FilmListProps = {
+type FilmsListProps = {
 	length?: number;
-	genre?: string;
+	similarFilms?: IFilmProps[];
 };
 
-export default function FilmsList({ length = MOVIES_LIST_LENGTH, genre }: FilmListProps): JSX.Element {
+function FilmsList({
+  length = MOVIES_LIST_LENGTH,
+  similarFilms,
+}: FilmsListProps): React.JSX.Element {
   const [activeFilm, setActiveFilm] = useState<number | null>(null);
-  const films = useAppSelector((state) => state.films);
-  const isLoading = useAppSelector((state) => state.isLoadingFilms);
+  const genreFilms = useAppSelector(getFilmsByGenre);
+  const isLoading = useAppSelector(getIsLoadingList);
+  const filteredItems = similarFilms || genreFilms;
 
   const handleCardHover = (id: number) => {
     setActiveFilm(id);
   };
+
   const handleCardLeave = () => {
     setActiveFilm(null);
   };
-
-  const filterItems = genre ? films.filter((film) => film.genre === genre) : films;
 
   return (
     <div className="catalog__films-list">
       {isLoading ? (
         <Spinner />
-      ) : (filterItems.slice(0, length).map((film) => (
+      ) : (filteredItems.slice(0, length).map((film) => (
         <Card
           film={film}
           key={film.name}
@@ -39,3 +44,7 @@ export default function FilmsList({ length = MOVIES_LIST_LENGTH, genre }: FilmLi
     </div>
   );
 }
+
+const FilmsListMemo = React.memo(FilmsList);
+
+export default FilmsListMemo;

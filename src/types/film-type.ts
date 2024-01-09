@@ -1,17 +1,17 @@
 export interface IFilmProps {
 	id: number;
 	name: string;
-	previewImg: string;
+	previewImage: string;
 	previewVideoLink: string;
 	genre: string;
-	alt: string;
+	alt?: string;
 }
 
 export interface IFilmPromo {
 	id: string;
 	name: string;
-	postImg: string;
-	backgroundImg: string;
+	posterImage: string;
+	backgroundImage: string;
 	videoLink: string;
 	genre: string;
 	released: number;

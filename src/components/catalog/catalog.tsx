@@ -3,9 +3,10 @@ import GenresList from '../genre-list/genre-list';
 import FilmsList from '../film-list/film-list';
 import { MOVIES_LIST_LENGTH } from '../../const/movies-list';
 import { useAppSelector } from '../../hook/store';
+import { getFilmsByGenre } from '../../store/movies-process/movies-process.selectors';
 
 export default function Catalog(): JSX.Element {
-  const stateGenreFilms = useAppSelector((state) => state.genreMovies);
+  const stateGenreFilms = useAppSelector(getFilmsByGenre);
   const [listLength, setListLength] = useState(MOVIES_LIST_LENGTH);
   const isBtnVisible = stateGenreFilms.length >= listLength;
   const handleClick = useCallback(() => {
