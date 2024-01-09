@@ -1,8 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { AppRoute } from '../../enums/AppRoute';
+import { AppRoute } from '../../enums/app-route';
 
-export default function Page404(): JSX.Element {
+export default function PageNotFound(): JSX.Element {
   return (
     <React.Fragment>
       <h1>Oops! We can&apos;t find that page.</h1>

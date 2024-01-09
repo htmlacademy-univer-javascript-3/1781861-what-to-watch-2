@@ -1,6 +1,6 @@
 import React, { FormEvent, useEffect } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
-import { AppRoute } from '../../enums/AppRoute';
+import { AppRoute } from '../../enums/app-route';
 import { FavoriteStatus } from '../../enums/favorite-status';
 import { useAppDispatch, useAppSelector } from '../../hook/store';
 import { changeFavoriteStatus, fetchFavoriteFilmsAction, fetchFilmByIdAction, fetchFilmReviewsAction, fetchSimilarFilmsAction } from '../../store/api-actions';

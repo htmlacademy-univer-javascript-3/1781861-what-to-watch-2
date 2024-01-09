@@ -12,6 +12,8 @@ export const getActiveGenre = (state: State): string => state[NameSpace.Films].a
 
 export const getPromoFilm = (state: State): IFilmPromo | null => state[NameSpace.Films].promoFilm;
 
+export const getIsPromoLoading = (state: Pick<State, NameSpace.Films>): boolean | null => state[NameSpace.Films].isPromoLoading;
+
 export const getFavoriteFilms = (state: Pick<State, NameSpace.Films>): IFilmProps[] => state[NameSpace.Films].favoriteFilms;
 
 export const getFavoriteFilmsLength = (state: Pick<State, NameSpace.Films>): number => state[NameSpace.Films].favoriteFilms?.length || 0;

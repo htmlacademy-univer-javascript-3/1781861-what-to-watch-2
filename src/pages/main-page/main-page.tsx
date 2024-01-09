@@ -1,16 +1,19 @@
 import React, { useEffect } from 'react';
 import Footer from '../../components/footer/footer';
 import Catalog from '../../components/catalog/catalog';
+import PageNotFound from '../page-not-found/page-not-found';
+import { Spinner } from '../../components/spinner/spinner';
 import FilmCard from '../../components/film-card/film-card';
 import { useAppDispatch, useAppSelector } from '../../hook/store';
-import { getPromoFilm } from '../../store/movies-process/movies-process.selectors';
+import { getIsPromoLoading, getPromoFilm } from '../../store/movies-process/movies-process.selectors';
 import { fetchFavoriteFilmsAction, fetchFilmPromoAction } from '../../store/api-actions';
-import { AuthStatus } from '../../enums/AuthStatus';
+import { AuthStatus } from '../../enums/auth-status';
 import { getAuthStatus } from '../../store/user-process/user-process.selectors';
 
 export default function MainPage(): JSX.Element | null {
   const dispatch = useAppDispatch();
   const promoFilm = useAppSelector(getPromoFilm);
+  const isPromoLoading = useAppSelector(getIsPromoLoading);
   const authStatus = useAppSelector(getAuthStatus);
   const isAuth = authStatus === AuthStatus.Auth;
 
@@ -21,11 +24,11 @@ export default function MainPage(): JSX.Element | null {
     }
   }, [dispatch, isAuth]);
 
-  if (!promoFilm) {
-    return null;
+  if (isPromoLoading) {
+    return <Spinner />;
   }
 
-  return (
+  return promoFilm ? (
     <React.Fragment>
       <FilmCard film={promoFilm} />
       <div className="page-content">
@@ -33,5 +36,7 @@ export default function MainPage(): JSX.Element | null {
         <Footer />
       </div>
     </React.Fragment>
+  ) : (
+    <PageNotFound />
   );
 }

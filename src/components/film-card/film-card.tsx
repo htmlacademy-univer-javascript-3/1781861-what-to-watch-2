@@ -5,7 +5,7 @@ import FilmCardPoster from '../film-card-poster/film-card-poster';
 import { IFilmPromo } from '../../types/film-type';
 import { useAppSelector } from '../../hook/store';
 import { getAuthStatus } from '../../store/user-process/user-process.selectors';
-import { AuthStatus } from '../../enums/AuthStatus';
+import { AuthStatus } from '../../enums/auth-status';
 import { getFavoriteFilms } from '../../store/movies-process/movies-process.selectors';
 
 type FilmCardProps = {

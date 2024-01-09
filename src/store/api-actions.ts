@@ -4,7 +4,7 @@ import { AxiosInstance } from 'axios';
 import { IFilmDetailsProps, IFilmPromo, IFilmProps } from '../types/film-type.ts';
 import { redirectToRoute } from './action.ts';
 import { IAddUserReview, IReviewProps, IUserReview } from '../types/review-type.ts';
-import { AppRoute } from '../enums/AppRoute.ts';
+import { AppRoute } from '../enums/app-route.ts';
 import { AuthData, UserData } from '../types/auth.ts';
 import { FavoriteStatus } from '../enums/favorite-status.ts';
 
@@ -21,93 +21,87 @@ export const fetchFilmsAction = createAsyncThunk<IFilmProps[], undefined, {
 );
 
 export const fetchFilmByIdAction = createAsyncThunk<
-	IFilmDetailsProps,
-	string,
-	{
-		dispatch: AppDispatch;
-		state: State;
-		extra: AxiosInstance;
-	}>(
-	  '/films/id',
-	  async (id: string, { extra: api }) => {
-
-	    const { data } = await api.get<IFilmDetailsProps>(`/films/${id}`);
-
-	    return data;
-	  },
-	);
+    IFilmDetailsProps,
+    string,
+    {
+        dispatch: AppDispatch;
+        state: State;
+        extra: AxiosInstance;
+    }>(
+      '/films/id',
+      async (id: string, { extra: api }) => {
+        const { data } = await api.get<IFilmDetailsProps>(`/films/${id}`);
+        return data;
+      },
+    );
 
 export const fetchSimilarFilmsAction = createAsyncThunk<
-	IFilmProps[],
-	string,
-	{
-		dispatch: AppDispatch;
-		state: State;
-		extra: AxiosInstance;
-	}>(
-	  '/films/id/similar',
-	  async (id: string, { extra: api }) => {
-
-	    const { data } = await api.get<IFilmProps[]>(`/films/${id}/similar`);
-
-	    return data;
-
-	  },
-	);
+    IFilmProps[],
+    string,
+    {
+        dispatch: AppDispatch;
+        state: State;
+        extra: AxiosInstance;
+    }>(
+      '/films/id/similar',
+      async (id: string, { extra: api }) => {
+        const { data } = await api.get<IFilmProps[]>(`/films/${id}/similar`);
+        return data;
+      },
+    );
 
 export const fetchFavoriteFilmsAction = createAsyncThunk<
-	IFilmProps[],
-	undefined,
-	{
-		dispatch: AppDispatch;
-		state: State;
-		extra: AxiosInstance;
-	}>(
-	  '/favorite',
-	  async (_arg, { extra: api }) => {
-	    const { data } = await api.get<IFilmProps[]>('/favorite');
-	    return data;
-
-	  }
-	);
+    IFilmProps[],
+    undefined,
+    {
+        dispatch: AppDispatch;
+        state: State;
+        extra: AxiosInstance;
+    }>(
+      '/favorite',
+      async (_arg, { extra: api }) => {
+        const { data } = await api.get<IFilmProps[]>('/favorite');
+        return data;
+      }
+    );
 
 export const fetchFilmPromoAction = createAsyncThunk<
-	IFilmPromo,
-	undefined,
-	{
-		dispatch: AppDispatch;
-		state: State;
-		extra: AxiosInstance;
-	}>(
-	  '/promo',
-	  async (_arg, { extra: api }) => {
-	    const { data } = await api.get<IFilmPromo>('/promo');
-	    return data;
-	  },
-	);
+    IFilmPromo,
+    undefined,
+    {
+        dispatch: AppDispatch;
+        state: State;
+        extra: AxiosInstance;
+    }>(
+      '/promo',
+      async (_arg, { extra: api }) => {
+        const { data } = await api.get<IFilmPromo>('/promo');
+        return data;
+      },
+    );
 
 export const fetchFilmReviewsAction = createAsyncThunk<
-	IReviewProps[],
-	string,
-	{
-		dispatch: AppDispatch;
-		state: State;
-		extra: AxiosInstance;
-	}>('/comments/id', async (id, { extra: api }) => {
-	  const { data } = await api.get<IReviewProps[]>(`/comments/${id}`);
-	  return data;
-	},
-	);
+    IReviewProps[],
+    string,
+    {
+        dispatch: AppDispatch;
+        state: State;
+        extra: AxiosInstance;
+    }>('/comments/id', async (id, { extra: api }) => {
+      const { data } = await api.get<IReviewProps[]>(`/comments/${id}`);
+      return data;
+    },
+    );
 
 
 export const checkAuthStatus = createAsyncThunk<
-	UserData,
-	undefined,
-	{
-		dispatch: AppDispatch;
-		state: State;
-		extra: AxiosInstance;
-	}
+    UserData,
+    undefined,
+    {
+        dispatch: AppDispatch;
+        state: State;
+        extra: AxiosInstance;
+    }
 >(
   'user/login',
   async (_arg, { extra: api }) => {
@@ -117,13 +111,13 @@ export const checkAuthStatus = createAsyncThunk<
 );
 
 export const loginAction = createAsyncThunk<
-	UserData,
-	AuthData,
-	{
-		dispatch: AppDispatch;
-		state: State;
-		extra: AxiosInstance;
-	}
+    UserData,
+    AuthData,
+    {
+        dispatch: AppDispatch;
+        state: State;
+        extra: AxiosInstance;
+    }
 >(
   '/login',
   async ({ email, password }, { dispatch, extra: api }) => {
@@ -142,13 +136,13 @@ export const loginAction = createAsyncThunk<
 );
 
 export const logoutAction = createAsyncThunk<
-	void,
-	undefined,
-	{
-		dispatch: AppDispatch;
-		state: State;
-		extra: AxiosInstance;
-	}
+    void,
+    undefined,
+    {
+        dispatch: AppDispatch;
+        state: State;
+        extra: AxiosInstance;
+    }
 >(
   '/logout',
   async (_arg, { extra: api }) => {
@@ -157,9 +151,9 @@ export const logoutAction = createAsyncThunk<
 );
 
 export const addCommentAction = createAsyncThunk<void, IAddUserReview, {
-	dispatch: AppDispatch;
-	state: State;
-	extra: AxiosInstance;
+    dispatch: AppDispatch;
+    state: State;
+    extra: AxiosInstance;
 }>(
   'addCommentAction',
   async ({ movieId, comment, rating }, { dispatch, extra: api }) => {
@@ -169,15 +163,15 @@ export const addCommentAction = createAsyncThunk<void, IAddUserReview, {
 );
 
 export const changeFavoriteStatus = createAsyncThunk<
-	void,
-	{ filmId: string; status: FavoriteStatus },
-	{
-		dispatch: AppDispatch;
-		state: State;
-		extra: AxiosInstance;
-	}>(
-	  'favorite/status',
-	  async ({ filmId, status }, { extra: api }) => {
-	    await api.post(`/favorite/${filmId}/${status}`);
-	  },
-	);
+    void,
+    { filmId: string; status: FavoriteStatus },
+    {
+        dispatch: AppDispatch;
+        state: State;
+        extra: AxiosInstance;
+    }>(
+      'favorite/status',
+      async ({ filmId, status }, { extra: api }) => {
+        await api.post(`/favorite/${filmId}/${status}`);
+      },
+    );
