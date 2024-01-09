@@ -3,17 +3,18 @@ import { IFilmDetailsProps } from '../../types/film-type';
 import MovieOverview from '../movie-overview/movie-overview';
 import MovieDetails from '../movie-details/movie-details';
 import MovieReviews from '../movie-reviews/movie-reviews';
-import { reviewDetails } from '../../mocks/reviews';
+import { IReviewProps } from '../../types/review-type';
 
 const TABS = ['Overview', 'Details', 'Reviews'] as const;
 
 type Tab = typeof TABS[number];
 
 type tabsProps = {
-	film: IFilmDetailsProps;
+  film: IFilmDetailsProps;
+  reviews: IReviewProps[];
 }
 
-function Tabs({ film }: tabsProps): JSX.Element {
+function Tabs({ film, reviews }: tabsProps): JSX.Element {
   const [activeTab, setActiveTab] = useState<Tab>(TABS[0]);
 
   const handleSetActiveTab = useCallback(
@@ -32,11 +33,11 @@ function Tabs({ film }: tabsProps): JSX.Element {
       case 'Details':
         return <MovieDetails film={film} />;
       case 'Reviews':
-        return <MovieReviews reviews={reviewDetails} />;
+        return <MovieReviews reviews={reviews} />;
       default:
         return null;
     }
-  }, [activeTab, film]);
+  }, [activeTab, film, reviews]);
 
   return (
     <div className="film-card__desc">

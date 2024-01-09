@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Link, Navigate, useParams } from 'react-router-dom';
+import { Navigate, useParams } from 'react-router-dom';
 import Footer from '../../components/footer/footer';
 import Header from '../../components/header/header';
 import FilmCardPoster from '../../components/film-card-poster/film-card-poster';
@@ -10,16 +10,23 @@ import { useAppDispatch, useAppSelector } from '../../hook/store';
 import { fetchFilmByIdAction, fetchFilmReviewsAction, fetchSimilarFilmsAction } from '../../store/api-actions';
 import { Spinner } from '../../components/spinner/spinner';
 import { AuthStatus } from '../../enums/AuthStatus';
-import { getFilm, getIsLoadingFilm } from '../../store/movie-process/movie-process.selectors';
+import { getFilm, getIsLoadingFilm, getReviews } from '../../store/movie-process/movie-process.selectors';
 import { getAuthStatus } from '../../store/user-process/user-process.selectors';
+import FilmCardButton from '../../components/film-card-btn/film-card-btn';
+import { getFavoriteFilms } from '../../store/movies-process/movies-process.selectors';
 
 export default function MoviePage(): JSX.Element {
   const { id = '' } = useParams();
   const dispatch = useAppDispatch();
   const film = useAppSelector(getFilm);
+  const reviews = useAppSelector(getReviews);
   const isLoading = useAppSelector(getIsLoadingFilm);
   const authStatus = useAppSelector(getAuthStatus);
   const isAuth = authStatus === AuthStatus.Auth;
+  const favoriteFilms = useAppSelector(getFavoriteFilms);
+  const isFavorite = favoriteFilms?.find(
+    (favorite) => String(favorite.id) === String(film?.id)
+  );
 
   useEffect(() => {
     if (id) {
@@ -42,7 +49,7 @@ export default function MoviePage(): JSX.Element {
       <section className="film-card film-card--full">
         <div className="film-card__hero">
           <div className="film-card__bg">
-            <img src={film.posterImage} alt={film.name} />
+            <img src={film.backgroundImage} alt={film.name} />
           </div>
 
           <h1 className="visually-hidden">WTW</h1>
@@ -54,31 +61,14 @@ export default function MoviePage(): JSX.Element {
                 <span className="film-card__genre">{film.genre}</span>
                 <span className="film-card__year">{film.released}</span>
               </p>
-              <div className="film-card__buttons">
-                <button className="btn btn--play film-card__button" type="button">
-                  <svg viewBox="0 0 19 19" width={19} height={19}>
-                    <use xlinkHref="#play-s" />
-                  </svg>
-                  <span>Play</span>
-                </button>
-                <button className="btn btn--list film-card__button" type="button"	>
-                  <svg viewBox="0 0 19 20" width={19} height={20}>
-                    <use xlinkHref="#add" />
-                  </svg>
-                  <span>My list</span>
-                  <span className="film-card__count">9</span>
-                </button>
-                {isAuth && (
-                  <Link to={`${AppRoute.Films}/${film.id}${AppRoute.Review}`} className="btn film-card__button"> Add review </Link>
-                )}
-              </div>
+              <FilmCardButton isAuth={isAuth} id={film.id} isFavorite={Boolean(isFavorite)} isReviewButtonVisible />
             </div>
           </div>
         </div>
         <div className="film-card__wrap film-card__translate-top">
           <div className="film-card__info">
-            <FilmCardPoster src={film.backgroundImage} alt={film.name} />
-            <Tabs film={film} />
+            <FilmCardPoster src={film.posterImage} alt={film.name} />
+            <Tabs film={film} reviews={reviews} />
           </div>
         </div>
       </section>
