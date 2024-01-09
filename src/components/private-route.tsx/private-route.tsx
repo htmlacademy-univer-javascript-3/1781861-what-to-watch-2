@@ -1,7 +1,7 @@
 import { Navigate } from 'react-router-dom';
-import { AppRoute } from '../../enums/AppRoute';
+import { AppRoute } from '../../enums/app-route';
 import { useAppSelector } from '../../hook/store';
-import { AuthStatus } from '../../enums/AuthStatus';
+import { AuthStatus } from '../../enums/auth-status';
 import { getAuthStatus } from '../../store/user-process/user-process.selectors';
 
 type PrivateRouteProps = {

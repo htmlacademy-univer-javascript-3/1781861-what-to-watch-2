@@ -1,6 +1,6 @@
 import React, { FormEvent, useCallback } from 'react';
 import { Link } from 'react-router-dom';
-import { AppRoute } from '../../enums/AppRoute';
+import { AppRoute } from '../../enums/app-route';
 import { setActiveGenre, setFilmsByGenre } from '../../store/movies-process/movies-process.slice';
 import { useAppDispatch } from '../../hook/store';
 

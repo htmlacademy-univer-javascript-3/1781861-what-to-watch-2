@@ -1,6 +1,6 @@
 import { store } from '../store';
 import { UserData } from './auth.ts';
-import { AuthStatus } from '../enums/AuthStatus.ts';
+import { AuthStatus } from '../enums/auth-status.ts';
 import { ALL_GENRES } from '../const/genres.ts';
 import { IReviewProps } from './review-type.ts';
 import { IFilmProps, IFilmDetailsProps, IFilmPromo } from './film-type.ts';
@@ -21,6 +21,7 @@ export type FilmsProcessState = {
 	promoFilm: IFilmPromo | null;
 	isLoadingList: boolean;
 	favoriteFilms: IFilmProps[];
+	isPromoLoading: boolean;
 }
 
 export type FilmProcessState = {

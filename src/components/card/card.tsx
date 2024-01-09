@@ -3,7 +3,7 @@ import { useCallback } from 'react';
 import { Link } from 'react-router-dom';
 import './card.css';
 import { IFilmProps } from '../../types/film-type';
-import { AppRoute } from '../../enums/AppRoute';
+import { AppRoute } from '../../enums/app-route';
 import VideoPlayer from '../videoplayer/videoplayer';
 
 

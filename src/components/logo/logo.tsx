@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { AppRoute } from '../../enums/AppRoute';
+import { AppRoute } from '../../enums/app-route';
 
 type Props = {
 	isLight?: boolean;

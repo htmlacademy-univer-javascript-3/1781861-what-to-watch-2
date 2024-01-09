@@ -4,9 +4,9 @@ import Footer from '../../components/footer/footer';
 import UserBlock from '../../components/user-block/user-block';
 import FilmsList from '../../components/film-list/film-list';
 import { useAppSelector } from '../../hook/store';
-import { AuthStatus } from '../../enums/AuthStatus';
+import { AuthStatus } from '../../enums/auth-status';
 import { getAuthStatus } from '../../store/user-process/user-process.selectors';
-import { AppRoute } from '../../enums/AppRoute';
+import { AppRoute } from '../../enums/app-route';
 import { getFavoriteFilms } from '../../store/movies-process/movies-process.selectors';
 
 

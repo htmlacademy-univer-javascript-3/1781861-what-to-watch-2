@@ -11,6 +11,7 @@ const initialState: FilmsProcessState = {
   promoFilm: null,
   isLoadingList: true,
   favoriteFilms: [],
+  isPromoLoading: false,
 };
 
 export const filmsProcessSlice = createSlice({
@@ -19,7 +20,7 @@ export const filmsProcessSlice = createSlice({
   reducers: {
     setFilmsByGenre: (state) => {
       state.genreFilms =
-				state.activeGenre === ALL_GENRES ? state.films : state.films.filter((film) => film.genre === state.activeGenre);
+        state.activeGenre === ALL_GENRES ? state.films : state.films.filter((film) => film.genre === state.activeGenre);
     },
     setActiveGenre: (state, action) => {
       state.activeGenre = String(action.payload);
@@ -49,9 +50,14 @@ export const filmsProcessSlice = createSlice({
 
       .addCase(fetchFilmPromoAction.fulfilled, (state, action) => {
         state.promoFilm = action.payload;
+        state.isPromoLoading = false;
+      })
+      .addCase(fetchFilmPromoAction.pending, (state) => {
+        state.isPromoLoading = true;
       })
       .addCase(fetchFilmPromoAction.rejected, (state) => {
         state.promoFilm = null;
+        state.isPromoLoading = false;
       });
   }
 });

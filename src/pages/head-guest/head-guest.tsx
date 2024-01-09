@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import Logo from '../../components/logo/logo';
-import { AppRoute } from '../../enums/AppRoute';
+import { AppRoute } from '../../enums/app-route';
 
 
 export default function HeadGuest(): JSX.Element {

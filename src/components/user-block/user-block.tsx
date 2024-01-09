@@ -2,9 +2,9 @@ import React, { useCallback } from 'react';
 import './user-block.css';
 import { useAppDispatch, useAppSelector } from '../../hook/store';
 import { Link } from 'react-router-dom';
-import { AppRoute } from '../../enums/AppRoute';
+import { AppRoute } from '../../enums/app-route';
 import { logoutAction } from '../../store/api-actions';
-import { AuthStatus } from '../../enums/AuthStatus';
+import { AuthStatus } from '../../enums/auth-status';
 import { getAuthStatus, getUser } from '../../store/user-process/user-process.selectors';
 
 
@@ -22,18 +22,20 @@ function UserBlock(): React.JSX.Element {
   return (
     <ul className="user-block">
       <li className="user-block__item">
-        <div className="user-block__avatar">
-          <img src={user?.avatarUrl || 'img/avatar.jpg'} alt={user?.name || 'User avatar'}/>
-        </div>
+        {isAuth && user && (
+          <div className="user-block__avatar">
+            <img src={user?.avatarUrl || 'img/avatar.jpg'} alt={user?.name || 'User avatar'} />
+          </div>
+        )}
       </li>
       <li className="user-block__item">
         {isAuth ? (
           <Link to={`${AppRoute.Main}`} className="user-block__link" onClick={handleClick}>
-						Sign out
+            Sign out
           </Link>
         ) : (
           <Link to={`${AppRoute.Login}`} className="user-block__link">
-						Sign in
+            Sign in
           </Link>
         )}
       </li>

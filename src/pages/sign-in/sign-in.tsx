@@ -1,4 +1,4 @@
-import React, { FormEvent, useRef, useState } from 'react';
+import { FormEvent, useRef, useState } from 'react';
 import Footer from '../../components/footer/footer';
 import Logo from '../../components/logo/logo';
 import { EMAIL_PAT, PASS_PAT } from '../../const/valid';

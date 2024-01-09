@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { NameSpace } from '../../const/name-spaces.ts';
 import { UserProcessState } from '../../types/state.ts';
-import { AuthStatus } from '../../enums/AuthStatus.ts';
+import { AuthStatus } from '../../enums/auth-status.ts';
 import { checkAuthStatus, loginAction, logoutAction } from '../api-actions.ts';
 import { removeToken, setToken } from '../../service/token.ts';
 

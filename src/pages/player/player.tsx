@@ -1,11 +1,11 @@
-import React, { useEffect, useCallback, useRef, useState } from 'react';
+import { useEffect, useCallback, useRef, useState } from 'react';
 import { Link, Navigate, useNavigate, useParams } from 'react-router-dom';
-import { AppRoute } from '../../enums/AppRoute';
+import { AppRoute } from '../../enums/app-route';
 import { useAppDispatch, useAppSelector } from '../../hook/store';
 import { fetchFilmByIdAction } from '../../store/api-actions';
 import { getFilm, getIsLoadingFilm } from '../../store/movie-process/movie-process.selectors';
 import { Spinner } from '../../components/spinner/spinner';
-import Page404 from '../page-404/page-404';
+import PageNotFound from '../page-not-found/page-not-found';
 
 export default function Player(): JSX.Element {
   const { id = '' } = useParams();
@@ -15,7 +15,7 @@ export default function Player(): JSX.Element {
   const isLoading = useAppSelector(getIsLoadingFilm);
   const [isPlaying, setIsPlaying] = useState(true);
   const [progress, setProgress] = useState(0);
-  const [timeLeft, setTimeLeft] = useState<null | string>(null);
+  const [timeLeft] = useState<null | string>(null);
 
   const videoRef = useRef<HTMLVideoElement | null>(null);
   const sliderRef = useRef<HTMLDivElement | null>(null);
@@ -40,7 +40,6 @@ export default function Player(): JSX.Element {
     const currentTime = videoRef.current.currentTime;
     const newProgress = (currentTime / duration) * 100;
     setProgress(newProgress);
-    // setTimeLeft(calcRemainingTime(duration, currentTime));
   };
 
   const handleFullSrceen = () => {
@@ -112,6 +111,6 @@ export default function Player(): JSX.Element {
       </div>
     </div>
   ) : (
-    <Page404 />
+    <PageNotFound />
   );
 }

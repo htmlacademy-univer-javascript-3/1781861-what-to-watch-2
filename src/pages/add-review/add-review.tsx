@@ -4,7 +4,7 @@ import { Link, Navigate, useParams } from 'react-router-dom';
 import UserBlock from '../../components/user-block/user-block';
 import Logo from '../../components/logo/logo';
 import FilmCardPoster from '../../components/film-card-poster/film-card-poster';
-import { AppRoute } from '../../enums/AppRoute';
+import { AppRoute } from '../../enums/app-route';
 import AddReviewForm from '../../components/add-review-form/add-review-form';
 import { useAppDispatch, useAppSelector } from '../../hook/store';
 import { fetchFilmByIdAction } from '../../store/api-actions';

@@ -3,7 +3,7 @@ import { ChangeEvent, FormEvent, Fragment, useState, useCallback } from 'react';
 import { Navigate, useNavigate } from 'react-router-dom';
 import { useAppDispatch } from '../../hook/store';
 import { addCommentAction } from '../../store/api-actions';
-import { AppRoute } from '../../enums/AppRoute';
+import { AppRoute } from '../../enums/app-route';
 import FORM_VALUE from '../../const/form-value';
 
 type ReviewFormProps = {

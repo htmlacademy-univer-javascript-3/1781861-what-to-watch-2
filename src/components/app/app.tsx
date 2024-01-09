@@ -3,11 +3,11 @@ import AddReview from '../../pages/add-review/add-review';
 import MainPage from '../../pages/main-page/main-page';
 import MoviePage from '../../pages/movie-page/movie-page';
 import MyList from '../../pages/my-list/my-list';
-import Page404 from '../../pages/page-404/page-404';
+import PageNotFound from '../../pages/page-not-found/page-not-found';
 import Player from '../../pages/player/player';
 import Sign from '../../pages/sign-in/sign-in';
 import PrivateRoute from '../private-route.tsx/private-route';
-import { AppRoute } from '../../enums/AppRoute';
+import { AppRoute } from '../../enums/app-route';
 import HistoryRouter from '../history-router/history-router';
 import browserHistory from '../../browser-history';
 import ScrollTop from '../scroll-top/scroll-top';
@@ -29,7 +29,7 @@ function App(): JSX.Element {
             <Route path={`:id${AppRoute.Review}`} element={<PrivateRoute ><AddReview /></PrivateRoute>} />
           </Route>
           <Route path={`${AppRoute.Player}/:id`} element={<Player />} />
-          <Route path='*' element={<Page404 />} />
+          <Route path='*' element={<PageNotFound />} />
         </Route>
       </Routes>
     </HistoryRouter>
