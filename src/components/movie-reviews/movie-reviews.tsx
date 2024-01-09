@@ -1,4 +1,4 @@
-import { reviewDetails } from '../../mocks/reviews';
+import React from 'react';
 import { IReviewProps } from '../../types/review-type';
 
 type ReviewsProps = {
@@ -26,7 +26,7 @@ function Review({ review }: ReviewProps): JSX.Element {
   );
 }
 
-export default function MovieReviews({ reviews = reviewDetails }: ReviewsProps): JSX.Element {
+function MovieReviews({ reviews = [] }: ReviewsProps): JSX.Element {
   return (
     <div className="film-card__reviews film-card__row">
       <div className="film-card__reviews-col">
@@ -42,3 +42,7 @@ export default function MovieReviews({ reviews = reviewDetails }: ReviewsProps):
     </div>
   );
 }
+
+const FilmReviewsMemo = React.memo(MovieReviews);
+
+export default FilmReviewsMemo;

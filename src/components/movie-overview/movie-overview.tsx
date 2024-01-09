@@ -5,14 +5,15 @@ type OverviewProps = {
 	film: IFilmDetailsProps;
 };
 
-export default function MovieOverview({ film }: OverviewProps): JSX.Element {
+function MovieOverview({ film }: OverviewProps): JSX.Element {
   return (
     <React.Fragment>
       <div className="film-rating">
         <div className="film-rating__score">{film.rating}</div>
         <p className="film-rating__meta">
           <span className="film-rating__level">Very good</span>
-          <span className="film-rating__count">240 ratings</span>
+          {/*<span className="film-rating__level">{filmRating}</span>*/}
+          <span className="film-rating__count">{film.scoreCount} ratings</span>
         </p>
       </div>
       <div className="film-card__text">
@@ -27,3 +28,7 @@ export default function MovieOverview({ film }: OverviewProps): JSX.Element {
     </React.Fragment>
   );
 }
+
+const OverviewMemo = React.memo(MovieOverview);
+
+export default OverviewMemo;

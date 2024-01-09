@@ -14,7 +14,7 @@ export interface IUserReview {
 	rating: number;
 }
 
-export interface AddUserReview {
+export interface IAddUserReview {
 	movieId: string;
 	comment: string;
 	rating: number;

@@ -5,7 +5,7 @@ type DetailsProps = {
 	film: IFilmDetailsProps;
 };
 
-export default function MovieDetails({ film }: DetailsProps): JSX.Element {
+function MovieDetails({ film }: DetailsProps): JSX.Element {
   return (
     <div className="film-card__text film-card__row">
       <div className="film-card__text-col">
@@ -44,3 +44,7 @@ export default function MovieDetails({ film }: DetailsProps): JSX.Element {
     </div>
   );
 }
+
+const DetailsMemo = React.memo(MovieDetails);
+
+export default DetailsMemo;

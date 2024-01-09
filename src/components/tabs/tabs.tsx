@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { IFilmDetailsProps } from '../../types/film-type';
 import MovieOverview from '../movie-overview/movie-overview';
 import MovieDetails from '../movie-details/movie-details';
@@ -13,7 +13,7 @@ type tabsProps = {
 	film: IFilmDetailsProps;
 }
 
-export default function Tabs({ film }: tabsProps): JSX.Element {
+function Tabs({ film }: tabsProps): JSX.Element {
   const [activeTab, setActiveTab] = useState<Tab>(TABS[0]);
 
   const handleSetActiveTab = useCallback(
@@ -55,3 +55,7 @@ export default function Tabs({ film }: tabsProps): JSX.Element {
     </div>
   );
 }
+
+const TabsMemo = React.memo(Tabs);
+
+export default TabsMemo;

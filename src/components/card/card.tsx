@@ -1,3 +1,4 @@
+import React from 'react';
 import { useCallback } from 'react';
 import { Link } from 'react-router-dom';
 import './card.css';
@@ -14,8 +15,8 @@ type CardProps = {
 	onMouseLeave: () => void;
 }
 
-export default function Card({ film, isActive = false, isMuted = true, onMouseEnter, onMouseLeave }: CardProps): JSX.Element {
-  const { name, previewImg, alt, id, previewVideoLink } = film;
+function Card({ film, isActive = false, isMuted = true, onMouseEnter, onMouseLeave }: CardProps): JSX.Element {
+  const { name, previewImage, alt, id, previewVideoLink } = film;
   const handleMouseEnter = useCallback(() => {
     onMouseEnter(id);
   }, [id, onMouseEnter]);
@@ -24,9 +25,9 @@ export default function Card({ film, isActive = false, isMuted = true, onMouseEn
     <article className="small-film-card catalog__films-card" onMouseEnter={handleMouseEnter} onMouseLeave={onMouseLeave} data-active={isActive}>
       <div className="small-film-card__image">
         {isActive ? (
-          <VideoPlayer postImg={previewImg} link={previewVideoLink} isMuted={isMuted} />
+          <VideoPlayer posterImage={previewImage} link={previewVideoLink} isMuted={isMuted} />
         ) : (
-          <img src={previewImg} alt={alt} />
+          <img src={previewImage} alt={alt} />
         )}
       </div>
       <h3 className="small-film-card__title">
@@ -35,3 +36,7 @@ export default function Card({ film, isActive = false, isMuted = true, onMouseEn
     </article>
   );
 }
+
+const CardMemo = React.memo(Card);
+
+export default CardMemo;

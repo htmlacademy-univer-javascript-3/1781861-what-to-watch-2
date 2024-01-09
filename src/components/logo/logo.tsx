@@ -1,3 +1,4 @@
+import React from 'react';
 import { Link } from 'react-router-dom';
 import { AppRoute } from '../../enums/AppRoute';
 
@@ -5,7 +6,7 @@ type Props = {
 	isLight?: boolean;
 }
 
-export default function Logo({ isLight = false }: Props): JSX.Element {
+function Logo({ isLight = false }: Props): JSX.Element {
   const computedClass = `logo__link ${isLight ? 'logo__link--light' : ''}`;
 
   return (
@@ -18,3 +19,7 @@ export default function Logo({ isLight = false }: Props): JSX.Element {
     </div>
   );
 }
+
+const LogoMemo = React.memo(Logo);
+
+export default LogoMemo;

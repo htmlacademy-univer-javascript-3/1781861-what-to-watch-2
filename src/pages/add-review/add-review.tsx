@@ -9,12 +9,13 @@ import AddReviewForm from '../../components/add-review-form/add-review-form';
 import { useAppDispatch, useAppSelector } from '../../hook/store';
 import { fetchFilmByIdAction } from '../../store/api-actions';
 import { Spinner } from '../../components/spinner/spinner';
+import { getFilm, getIsLoadingFilm } from '../../store/movie-process/movie-process.selectors';
 
 export default function AddReview(): JSX.Element {
   const { id = '' } = useParams();
   const dispatch = useAppDispatch();
-  const film = useAppSelector((state) => state.currentFilm);
-  const isLoading = useAppSelector((state) => state.isLoadingFilm);
+  const film = useAppSelector(getFilm);
+  const isLoading = useAppSelector(getIsLoadingFilm);
 
   useEffect(() => {
     if (id) {
@@ -34,7 +35,7 @@ export default function AddReview(): JSX.Element {
     <section className="film-card film-card--full">
       <div className="film-card__header">
         <div className="film-card__bg">
-          <img src={film.backgroundImg} alt={film.name} />
+          <img src={film.backgroundImage} alt={film.name} />
         </div>
         <h1 className="visually-hidden">WTW</h1>
         <header className="page-header">
@@ -51,7 +52,7 @@ export default function AddReview(): JSX.Element {
           </nav>
           <UserBlock />
         </header>
-        <FilmCardPoster size={'small'} src={film.backgroundImg} alt={film.name} />
+        <FilmCardPoster size={'small'} src={film.backgroundImage} alt={film.name} />
       </div>
       <AddReviewForm movieId={film.id} />
     </section>
