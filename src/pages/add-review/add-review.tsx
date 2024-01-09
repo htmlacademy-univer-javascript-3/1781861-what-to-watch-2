@@ -52,7 +52,7 @@ export default function AddReview(): JSX.Element {
           </nav>
           <UserBlock />
         </header>
-        <FilmCardPoster size={'small'} src={film.backgroundImage} alt={film.name} />
+        <FilmCardPoster size={'small'} src={film.posterImage} alt={film.name} />
       </div>
       <AddReviewForm movieId={film.id} />
     </section>

@@ -7,18 +7,18 @@ import { IFilmProps } from '../../types/film-type';
 import { getFilmsByGenre, getIsLoadingList } from '../../store/movies-process/movies-process.selectors';
 
 type FilmsListProps = {
-	length?: number;
-	similarFilms?: IFilmProps[];
+  length?: number;
+  films?: IFilmProps[];
 };
 
 function FilmsList({
   length = MOVIES_LIST_LENGTH,
-  similarFilms,
+  films,
 }: FilmsListProps): React.JSX.Element {
   const [activeFilm, setActiveFilm] = useState<number | null>(null);
   const genreFilms = useAppSelector(getFilmsByGenre);
   const isLoading = useAppSelector(getIsLoadingList);
-  const filteredItems = similarFilms || genreFilms;
+  const filteredItems = films || genreFilms;
 
   const handleCardHover = (id: number) => {
     setActiveFilm(id);

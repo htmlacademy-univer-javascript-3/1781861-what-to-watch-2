@@ -1,45 +1,108 @@
-import { useEffect } from 'react';
-import { Navigate, useParams } from 'react-router-dom';
+import React, { useEffect, useCallback, useRef, useState } from 'react';
+import { Link, Navigate, useNavigate, useParams } from 'react-router-dom';
 import { AppRoute } from '../../enums/AppRoute';
 import { useAppDispatch, useAppSelector } from '../../hook/store';
 import { fetchFilmByIdAction } from '../../store/api-actions';
-import { getFilm } from '../../store/movie-process/movie-process.selectors';
+import { getFilm, getIsLoadingFilm } from '../../store/movie-process/movie-process.selectors';
+import { Spinner } from '../../components/spinner/spinner';
+import Page404 from '../page-404/page-404';
 
 export default function Player(): JSX.Element {
   const { id = '' } = useParams();
+  const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const film = useAppSelector(getFilm);
+  const isLoading = useAppSelector(getIsLoadingFilm);
+  const [isPlaying, setIsPlaying] = useState(true);
+  const [progress, setProgress] = useState(0);
+  const [timeLeft, setTimeLeft] = useState<null | string>(null);
+
+  const videoRef = useRef<HTMLVideoElement | null>(null);
+  const sliderRef = useRef<HTMLDivElement | null>(null);
+
+  const togglePlay = () => {
+    if (videoRef.current === null) {
+      return;
+    }
+    if (isPlaying) {
+      videoRef.current.pause();
+    } else {
+      videoRef.current.play();
+    }
+    setIsPlaying(!isPlaying);
+  };
+
+  const handleProgress = () => {
+    if (videoRef.current === null) {
+      return;
+    }
+    const duration = videoRef.current.duration;
+    const currentTime = videoRef.current.currentTime;
+    const newProgress = (currentTime / duration) * 100;
+    setProgress(newProgress);
+    // setTimeLeft(calcRemainingTime(duration, currentTime));
+  };
+
+  const handleFullSrceen = () => {
+    if (videoRef.current === null) {
+      return;
+    }
+    videoRef.current.requestFullscreen();
+  };
+
+  const handleSlider = (clientX: number) => {
+    if (videoRef.current === null || sliderRef.current === null) {
+      return;
+    }
+    const newProgress = clientX / sliderRef.current.clientWidth;
+    setProgress(newProgress * 100);
+    videoRef.current.currentTime = videoRef.current.duration * newProgress;
+    handleProgress();
+  };
+
+  const handleExit = useCallback(() => {
+    navigate(-1);
+  }, [navigate]);
 
   useEffect(() => {
-    if (id) {
+    if (id && id !== film?.id) {
       dispatch(fetchFilmByIdAction(id));
     }
-  }, [id, dispatch]);
+  }, [id, dispatch, film?.id]);
 
-  if (!film) {
+  if (isLoading) {
+    return <Spinner />;
+  }
+
+  if (!film && !id) {
     return <Navigate to={AppRoute.NotFound} />;
   }
-  return (
+  return film ? (
     <div className="player">
-      <video src={film.videoLink} className="player__video" poster={film.posterImage}></video>
-      <button type="button" className="player__exit">Exit</button>
+      <video src={film.videoLink} className="player__video" poster={film.posterImage} ref={videoRef} autoPlay onTimeUpdate={handleProgress} />
+      <Link to={`${AppRoute.Films}/${film.id}`} onClick={handleExit} type="button" className="player__exit" >Exit</Link>
       <div className="player__controls">
         <div className="player__controls-row">
-          <div className="player__time">
-            <progress className="player__progress" value={30} max={100} />
-            <div className="player__toggler" style={{ left: '30%' }}>Toggler</div>
+          <div className="player__time" ref={sliderRef} onClick={(e) => {
+            handleSlider(e.clientX - 25);
+          }}
+          >
+            <progress className="player__progress" value={progress} max="100" />
+            <div className="player__toggler" style={{ left: `${progress}%` }}>
+              Toggler
+            </div>
           </div>
-          <div className="player__time-value">1:30:29</div>
+          <div className="player__time-value">{timeLeft}</div>
         </div>
         <div className="player__controls-row">
-          <button type="button" className="player__play">
+          <button type="button" className="player__play" onClick={togglePlay}>
             <svg viewBox="0 0 19 19" width={19} height={19}>
-              <use xlinkHref="#play-s"></use>
+              <use xlinkHref={isPlaying ? '#pause' : '#play-s'}></use>
             </svg>
-            <span>Play</span>
+            <span>{isPlaying ? 'Pause' : 'Play'}</span>
           </button>
           <div className="player__name">Transpotting</div>
-          <button type="button" className="player__full-screen">
+          <button type="button" className="player__full-screen" onClick={handleFullSrceen}>
             <svg viewBox="0 0 27 27" width={27} height={27}>
               <use xlinkHref="#full-screen"></use>
             </svg>
@@ -48,5 +111,7 @@ export default function Player(): JSX.Element {
         </div>
       </div>
     </div>
+  ) : (
+    <Page404 />
   );
 }
