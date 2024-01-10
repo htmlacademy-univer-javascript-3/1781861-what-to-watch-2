@@ -12,6 +12,7 @@ export type AppDispatch = typeof store.dispatch;
 export type UserProcessState = {
 	authorizationStatus: AuthStatus;
 	user: UserData | null;
+	hasError: boolean;
 }
 
 export type FilmsProcessState = {

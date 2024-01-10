@@ -15,12 +15,12 @@ function FilmsList({
   length = MOVIES_LIST_LENGTH,
   films,
 }: FilmsListProps): React.JSX.Element {
-  const [activeFilm, setActiveFilm] = useState<number | null>(null);
+  const [activeFilm, setActiveFilm] = useState<string | null>(null);
   const genreFilms = useAppSelector(getFilmsByGenre);
   const isLoading = useAppSelector(getIsLoadingList);
   const filteredItems = films || genreFilms;
 
-  const handleCardHover = (id: number) => {
+  const handleCardHover = (id: string) => {
     setActiveFilm(id);
   };
 
@@ -30,7 +30,7 @@ function FilmsList({
 
   return (
     <div className="catalog__films-list">
-      {isLoading ? (
+      { isLoading ? (
         <Spinner />
       ) : (filteredItems.slice(0, length).map((film) => (
         <Card

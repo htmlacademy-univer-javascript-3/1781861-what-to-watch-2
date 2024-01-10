@@ -29,12 +29,20 @@ export default function MoviePage(): JSX.Element {
   );
 
   useEffect(() => {
-    if (id) {
-      dispatch(fetchFilmByIdAction(id));
-      dispatch(fetchSimilarFilmsAction(id));
-      dispatch(fetchFilmReviewsAction(id));
+    let isMounted = true;
+
+    if (isMounted) {
+      if (id && id !== film?.id) {
+        dispatch(fetchFilmByIdAction(id));
+        dispatch(fetchSimilarFilmsAction(id));
+        dispatch(fetchFilmReviewsAction(id));
+      }
     }
-  }, [id, dispatch]);
+
+    return () => {
+      isMounted = false;
+    };
+  }, [id, dispatch, film?.id]);
 
   if (isLoading && !film) {
     return <Spinner />;
@@ -51,7 +59,6 @@ export default function MoviePage(): JSX.Element {
           <div className="film-card__bg">
             <img src={film.backgroundImage} alt={film.name} />
           </div>
-
           <h1 className="visually-hidden">WTW</h1>
           <Header />
           <div className="film-card__wrap">

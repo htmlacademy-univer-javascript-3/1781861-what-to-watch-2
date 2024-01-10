@@ -3,7 +3,7 @@ import { Link, useNavigate, useParams } from 'react-router-dom';
 import { AppRoute } from '../../enums/app-route';
 import { FavoriteStatus } from '../../enums/favorite-status';
 import { useAppDispatch, useAppSelector } from '../../hook/store';
-import { changeFavoriteStatus, fetchFavoriteFilmsAction, fetchFilmByIdAction, fetchFilmReviewsAction, fetchSimilarFilmsAction } from '../../store/api-actions';
+import { changeFavoriteStatusAction, fetchFavoriteFilmsAction, fetchFilmByIdAction, fetchFilmReviewsAction, fetchSimilarFilmsAction } from '../../store/api-actions';
 import { getFavoriteFilmsLength } from '../../store/movies-process/movies-process.selectors';
 
 type FilmCardButtonProps = {
@@ -28,7 +28,7 @@ function FilmCardButtons({ isAuth = false, isFavorite = false, id = '', isReview
     }
 
     dispatch(
-      changeFavoriteStatus({
+      changeFavoriteStatusAction({
         status: isFavorite
           ? FavoriteStatus.NoFavorite
           : FavoriteStatus.Favorite,
@@ -65,16 +65,7 @@ function FilmCardButtons({ isAuth = false, isFavorite = false, id = '', isReview
             <use xlinkHref="#add"></use>
           </svg>
         )}
-        {isAuth ? (
-          <Link to={`${AppRoute.MyList}`} className="film-card__link" onClick={(e) => {
-            e.stopPropagation();
-          }}
-          >
-            My list
-          </Link>
-        ) : (
-          <span>My list</span>
-        )}
+        <span>My list</span>
         <span className="film-card__count">{favoriteFilmsCount}</span>
       </button>
       {isAuth && isReviewButtonVisible && (

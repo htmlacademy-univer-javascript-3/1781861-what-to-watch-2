@@ -1,16 +1,24 @@
 import { FormEvent, useRef, useState } from 'react';
+import { Navigate } from 'react-router-dom';
 import Footer from '../../components/footer/footer';
 import Logo from '../../components/logo/logo';
 import { EMAIL_PAT, PASS_PAT } from '../../const/valid';
-import { useAppDispatch } from '../../hook/store';
+import { useAppDispatch, useAppSelector } from '../../hook/store';
 import { loginAction } from '../../store/api-actions';
+import { AuthStatus } from '../../enums/auth-status';
+import { getAuthHasError, getAuthStatus } from '../../store/user-process/user-process.selectors';
 
-export default function Sign(): JSX.Element {
+export default function SignIn(): JSX.Element {
   const [error, setError] = useState('');
   const dispatch = useAppDispatch();
 
+  const hasError = useAppSelector(getAuthHasError);
+
   const emailRef = useRef<HTMLInputElement | null>(null);
   const passwordRef = useRef<HTMLInputElement | null>(null);
+
+  const authStatus = useAppSelector(getAuthStatus);
+  const isAuth = authStatus === AuthStatus.Auth;
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -33,9 +41,15 @@ export default function Sign(): JSX.Element {
           email: emailRef.current.value,
           password: passwordRef.current.value,
         })
-      );
+      ).catch(() => {
+        setError('Ошибка сервера');
+      });
     }
   };
+
+  if (isAuth) {
+    return <Navigate to="/" />;
+  }
 
   return (
     <div className="user-page">
@@ -45,7 +59,7 @@ export default function Sign(): JSX.Element {
       </header>
       <div className="sign-in user-page__content">
         <form action="#" className="sign-in__form" onSubmit={handleSubmit}>
-          {error && (
+          {(error || hasError) && (
             <div className="sign-in__message">
               <p>{error}</p>
             </div>

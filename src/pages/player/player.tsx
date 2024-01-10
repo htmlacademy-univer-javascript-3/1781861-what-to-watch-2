@@ -6,6 +6,7 @@ import { fetchFilmByIdAction } from '../../store/api-actions';
 import { getFilm, getIsLoadingFilm } from '../../store/movie-process/movie-process.selectors';
 import { Spinner } from '../../components/spinner/spinner';
 import PageNotFound from '../page-not-found/page-not-found';
+import { calcRemainingTime } from '../../utilites/format-date-time';
 
 export default function Player(): JSX.Element {
   const { id = '' } = useParams();
@@ -15,7 +16,7 @@ export default function Player(): JSX.Element {
   const isLoading = useAppSelector(getIsLoadingFilm);
   const [isPlaying, setIsPlaying] = useState(true);
   const [progress, setProgress] = useState(0);
-  const [timeLeft] = useState<null | string>(null);
+  const [timeLeft, setTimeLeft] = useState<null | string>(null);
 
   const videoRef = useRef<HTMLVideoElement | null>(null);
   const sliderRef = useRef<HTMLDivElement | null>(null);
@@ -40,6 +41,7 @@ export default function Player(): JSX.Element {
     const currentTime = videoRef.current.currentTime;
     const newProgress = (currentTime / duration) * 100;
     setProgress(newProgress);
+    setTimeLeft(calcRemainingTime(duration, currentTime));
   };
 
   const handleFullSrceen = () => {
@@ -64,13 +66,21 @@ export default function Player(): JSX.Element {
   }, [navigate]);
 
   useEffect(() => {
-    if (id && id !== film?.id) {
-      dispatch(fetchFilmByIdAction(id));
+    let isMounted = true;
+
+    if (isMounted) {
+      if (id && id !== film?.id) {
+        dispatch(fetchFilmByIdAction(id));
+      }
     }
+
+    return () => {
+      isMounted = false;
+    };
   }, [id, dispatch, film?.id]);
 
   if (isLoading) {
-    return <Spinner />;
+    return <Spinner size="large"/>;
   }
 
   if (!film && !id) {

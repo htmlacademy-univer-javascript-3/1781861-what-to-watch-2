@@ -7,15 +7,15 @@ export interface IReviewProps {
 }
 
 export interface IUserReview {
-	id: number;
-	comment: string;
-	user: string;
-	date: Date;
-	rating: number;
+  id: number;
+  comment: string;
+  user: string;
+  date: Date;
+  rating: number;
 }
 
 export interface IAddUserReview {
-	movieId: string;
+	filmId: string;
 	comment: string;
 	rating: number;
 }
