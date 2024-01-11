@@ -14,6 +14,7 @@ import { getFilm, getIsLoadingFilm, getReviews } from '../../store/movie-process
 import { getAuthStatus } from '../../store/user-process/user-process.selectors';
 import FilmCardButton from '../../components/film-card-btn/film-card-btn';
 import { getFavoriteFilms } from '../../store/movies-process/movies-process.selectors';
+import PageNotFound from '../page-not-found/page-not-found';
 
 export default function MoviePage(): JSX.Element {
   const { id = '' } = useParams();
@@ -29,12 +30,20 @@ export default function MoviePage(): JSX.Element {
   );
 
   useEffect(() => {
-    if (id) {
-      dispatch(fetchFilmByIdAction(id));
-      dispatch(fetchSimilarFilmsAction(id));
-      dispatch(fetchFilmReviewsAction(id));
+    let isMounted = true;
+
+    if (isMounted) {
+      if (id && id !== film?.id) {
+        dispatch(fetchFilmByIdAction(id));
+        dispatch(fetchSimilarFilmsAction(id));
+        dispatch(fetchFilmReviewsAction(id));
+      }
     }
-  }, [id, dispatch]);
+
+    return () => {
+      isMounted = false;
+    };
+  }, [id, dispatch, film?.id]);
 
   if (isLoading && !film) {
     return <Spinner />;
@@ -44,14 +53,13 @@ export default function MoviePage(): JSX.Element {
     return <Navigate to={AppRoute.NotFound} />;
   }
 
-  return (
+  return film ? (
     <React.Fragment>
       <section className="film-card film-card--full">
         <div className="film-card__hero">
           <div className="film-card__bg">
             <img src={film.backgroundImage} alt={film.name} />
           </div>
-
           <h1 className="visually-hidden">WTW</h1>
           <Header />
           <div className="film-card__wrap">
@@ -80,5 +88,7 @@ export default function MoviePage(): JSX.Element {
         <Footer />
       </div>
     </React.Fragment>
+  ) : (
+    <PageNotFound />
   );
 }

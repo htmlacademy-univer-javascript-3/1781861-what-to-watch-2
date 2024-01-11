@@ -18,14 +18,21 @@ export default function MainPage(): JSX.Element | null {
   const isAuth = authStatus === AuthStatus.Auth;
 
   useEffect(() => {
-    dispatch(fetchFilmPromoAction());
-    if (isAuth) {
-      dispatch(fetchFavoriteFilmsAction());
+    let isMounted = true;
+    if (isMounted) {
+      dispatch(fetchFilmPromoAction());
+      if (isAuth) {
+        dispatch(fetchFavoriteFilmsAction());
+      }
     }
+
+    return () => {
+      isMounted = false;
+    };
   }, [dispatch, isAuth]);
 
   if (isPromoLoading) {
-    return <Spinner />;
+    return <Spinner/>;
   }
 
   return promoFilm ? (

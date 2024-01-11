@@ -2,22 +2,24 @@ import React from 'react';
 import { IReviewProps } from '../../types/review-type';
 
 type ReviewsProps = {
-	reviews: IReviewProps[];
+  reviews: IReviewProps[];
 };
 
 type ReviewProps = {
-	review: IReviewProps;
+  review: IReviewProps;
 };
 
 function Review({ review }: ReviewProps): JSX.Element {
+  const getDateString = (postDate: Date) => `${postDate.toLocaleString('eng', { month: 'long', })} ${postDate.getDate()}, ${postDate.getFullYear()}`;
+
   return (
     <div className="review">
       <blockquote className="review__quote">
         <p className="review__text">{review.comment}</p>
         <footer className="review__details">
           <cite className="review__author">{review.user}</cite>
-          <time className="review__date" dateTime="Дата отзыва">
-            {review.date.toString()}
+          <time className="review__date" dateTime={getDateString(new Date(review.date))}>
+            {getDateString(new Date(review.date))}
           </time>
         </footer>
       </blockquote>

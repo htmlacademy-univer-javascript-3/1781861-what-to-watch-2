@@ -1,6 +1,6 @@
 import { FilmProcessState } from '../../types/state.ts';
 import { createSlice } from '@reduxjs/toolkit';
-import { NameSpace } from '../../const/name-spaces.ts';
+import { NameSpace } from '../../enums/name-spaces.ts';
 import {
   fetchFilmByIdAction,
   fetchFilmReviewsAction, fetchSimilarFilmsAction,

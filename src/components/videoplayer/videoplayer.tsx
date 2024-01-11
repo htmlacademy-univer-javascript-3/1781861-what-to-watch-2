@@ -1,4 +1,5 @@
 import { useEffect, useRef } from 'react';
+import { DEFAULT_AUTOPLAY_TIME } from '../../const/time';
 
 interface IVideoPlayerProps {
 	posterImage: string;
@@ -10,9 +11,21 @@ export default function VideoPlayer({ posterImage, link, isMuted }: IVideoPlayer
   const videoRef = useRef<HTMLVideoElement>(null);
 
   useEffect(() => {
-    setTimeout(() => {
-      videoRef.current?.play();
-    }, 1000);
+    let isMounted = true;
+
+    if (isMounted) {
+      if (!videoRef.current) {
+        return;
+      }
+
+      setTimeout(() => {
+        videoRef.current?.play();
+      }, DEFAULT_AUTOPLAY_TIME);
+    }
+
+    return () => {
+      isMounted = false;
+    };
   }, []);
 
   return (

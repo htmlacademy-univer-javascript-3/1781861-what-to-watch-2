@@ -10,7 +10,6 @@ import { getAuthStatus, getUser } from '../../store/user-process/user-process.se
 
 function UserBlock(): React.JSX.Element {
   const dispatch = useAppDispatch();
-
   const authStatus = useAppSelector(getAuthStatus);
   const user = useAppSelector(getUser);
   const isAuth = authStatus === AuthStatus.Auth;
@@ -24,13 +23,15 @@ function UserBlock(): React.JSX.Element {
       <li className="user-block__item">
         {isAuth && user && (
           <div className="user-block__avatar">
-            <img src={user?.avatarUrl || 'img/avatar.jpg'} alt={user?.name || 'User avatar'} />
+            <Link to={`${AppRoute.MyList}`} className="user-block__link">
+              <img src={user?.avatarUrl || 'img/avatar.jpg'} alt={user?.name || 'User avatar'} />
+            </Link>
           </div>
         )}
       </li>
       <li className="user-block__item">
         {isAuth ? (
-          <Link to={`${AppRoute.Main}`} className="user-block__link" onClick={handleClick}>
+          <Link to={`${AppRoute.Login}`} className="user-block__link" onClick={handleClick}>
             Sign out
           </Link>
         ) : (
