@@ -9,6 +9,7 @@ import AddReviewForm from '../../components/add-review-form/add-review-form';
 import { useAppDispatch, useAppSelector } from '../../hook/store';
 import { fetchFilmByIdAction } from '../../store/api-actions';
 import { Spinner } from '../../components/spinner/spinner';
+import PageNotFound from '../page-not-found/page-not-found';
 import { getFilm, getIsLoadingFilm } from '../../store/movie-process/movie-process.selectors';
 
 export default function AddReview(): JSX.Element {
@@ -36,7 +37,7 @@ export default function AddReview(): JSX.Element {
     return <Navigate to={AppRoute.NotFound} />;
   }
 
-  return (
+  return film ? (
     <section className="film-card film-card--full">
       <div className="film-card__header">
         <div className="film-card__bg">
@@ -61,5 +62,7 @@ export default function AddReview(): JSX.Element {
       </div>
       <AddReviewForm filmId={film.id} />
     </section>
+  ) : (
+    <PageNotFound />
   );
 }

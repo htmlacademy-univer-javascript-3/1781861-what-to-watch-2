@@ -4,17 +4,17 @@ import { MOVIES_LIST_LENGTH } from '../../const/movies-list';
 import { useAppSelector } from '../../hook/store';
 import { Spinner } from '../spinner/spinner';
 import { IFilmProps } from '../../types/film-type';
-import { getFilmsByGenre, getIsLoadingList } from '../../store/movies-process/movies-process.selectors';
+import { NameSpace } from '../../enums/name-spaces';
+import { State } from '../../types/state';
+import { getIsLoadingList } from '../../store/movies-process/movies-process.selectors';
 
 type FilmsListProps = {
   length?: number;
   films?: IFilmProps[];
 };
 
-function FilmsList({
-  length = MOVIES_LIST_LENGTH,
-  films,
-}: FilmsListProps): React.JSX.Element {
+function FilmsList({ length = MOVIES_LIST_LENGTH, films }: FilmsListProps): React.JSX.Element {
+  const getFilmsByGenre = (state: Pick<State, NameSpace.Films>): IFilmProps[] => state[NameSpace.Films].genreFilms;
   const [activeFilm, setActiveFilm] = useState<string | null>(null);
   const genreFilms = useAppSelector(getFilmsByGenre);
   const isLoading = useAppSelector(getIsLoadingList);
@@ -30,7 +30,7 @@ function FilmsList({
 
   return (
     <div className="catalog__films-list">
-      { isLoading ? (
+      {isLoading ? (
         <Spinner />
       ) : (filteredItems.slice(0, length).map((film) => (
         <Card

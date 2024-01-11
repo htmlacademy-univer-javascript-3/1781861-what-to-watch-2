@@ -1,14 +1,14 @@
 import { useCallback, useState } from 'react';
 import GenresList from '../genre-list/genre-list';
 import FilmsList from '../film-list/film-list';
-import { MOVIES_LIST_LENGTH } from '../../const/movies-list';
 import { useAppSelector } from '../../hook/store';
-import { getFilmsByGenre } from '../../store/movies-process/movies-process.selectors';
+import { getFilmsByGenreLength } from '../../store/movies-process/movies-process.selectors';
+import { MOVIES_LIST_LENGTH } from '../../const/movies-list';
 
 export default function Catalog(): JSX.Element {
-  const stateGenreFilms = useAppSelector(getFilmsByGenre);
+  const stateGenreFilmsLength = useAppSelector(getFilmsByGenreLength);
   const [listLength, setListLength] = useState(MOVIES_LIST_LENGTH);
-  const isBtnVisible = stateGenreFilms.length >= listLength;
+  const isButtonVisible = stateGenreFilmsLength >= listLength;
   const handleClick = useCallback(() => {
     setListLength((prev) => prev + MOVIES_LIST_LENGTH);
   }, []);
@@ -18,7 +18,7 @@ export default function Catalog(): JSX.Element {
       <h2 className="catalog__title visually-hidden">Catalog</h2>
       <GenresList />
       <FilmsList length={listLength} />
-      {isBtnVisible && (
+      {isButtonVisible && (
         <div className="catalog__more">
           <button className="catalog__button" type="button" onClick={handleClick}>Show more</button>
         </div>

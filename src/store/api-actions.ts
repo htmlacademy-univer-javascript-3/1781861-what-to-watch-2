@@ -9,7 +9,7 @@ import { AuthData, UserData } from '../types/auth.ts';
 import { FavoriteStatus } from '../enums/favorite-status.ts';
 
 export const loginAction = createAsyncThunk<UserData, AuthData,{dispatch: AppDispatch; state: State; extra: AxiosInstance}>
-('user/login',
+('USER/login',
   async ({email, password}, { dispatch, extra: api}) => {
     const {data} = await api.post<UserData>(
       AppRoute.Login,
@@ -21,14 +21,14 @@ export const loginAction = createAsyncThunk<UserData, AuthData,{dispatch: AppDis
 );
 
 export const logoutAction = createAsyncThunk<void, undefined,{bdispatch: AppDispatch; state: State; extra: AxiosInstance}>
-('user/logout',
+('USER/logout',
   async (_arg, { extra: api}) => {
     await api.delete(AppRoute.Logout);
   },
 );
 
 export const checkAuthStatusAction = createAsyncThunk<UserData, undefined,{dispatch: AppDispatch; state: State; extra: AxiosInstance}>
-('user/checkAuth',
+('USER/checkAuth',
   async (_arg, { extra: api}) => {
     const {data} = await api.get<UserData>(AppRoute.Login);
     return data;
@@ -36,7 +36,7 @@ export const checkAuthStatusAction = createAsyncThunk<UserData, undefined,{dispa
 );
 
 export const fetchFilmsAction = createAsyncThunk<IFilmProps[], undefined, {dispatch: AppDispatch; state: State; extra: AxiosInstance}>
-('films/getFilms',
+('FILMS/getFilms',
   async (_arg, {extra: api}) => {
     const { data } = await api.get<IFilmProps[]>(AppRoute.Films);
     return data;
@@ -44,7 +44,7 @@ export const fetchFilmsAction = createAsyncThunk<IFilmProps[], undefined, {dispa
 );
 
 export const fetchFilmByIdAction = createAsyncThunk<IFilmDetailsProps, string, { dispatch: AppDispatch; state: State; extra: AxiosInstance}>
-('films/getFilmById',
+('FILMS/getFilmById',
   async (id: string, { extra: api}) => {
     const { data } = await api.get<IFilmDetailsProps>(`${AppRoute.Films}/${id}`);
     return data;
@@ -52,7 +52,7 @@ export const fetchFilmByIdAction = createAsyncThunk<IFilmDetailsProps, string, {
 );
 
 export const fetchSimilarFilmsAction = createAsyncThunk<IFilmProps[], string, { dispatch: AppDispatch; state: State; extra: AxiosInstance}>
-('films/fetchSimilarFilms',
+('FILMS/fetchSimilarFilms',
   async (id: string, { extra: api}) => {
     const { data } = await api.get<IFilmProps[]>(`${AppRoute.Films}/${id}/similar`);
     return data;
@@ -60,7 +60,7 @@ export const fetchSimilarFilmsAction = createAsyncThunk<IFilmProps[], string, { 
 );
 
 export const fetchFavoriteFilmsAction = createAsyncThunk<IFilmProps[], undefined, {dispatch: AppDispatch;state: State;extra: AxiosInstance}>
-('films/fetchFavoriteFilms',
+('FILMS/fetchFavoriteFilms',
   async (_arg, { extra: api}) => {
     const {data} = await api.get<IFilmProps[]>('/favorite');
     return data;
@@ -68,7 +68,7 @@ export const fetchFavoriteFilmsAction = createAsyncThunk<IFilmProps[], undefined
 );
 
 export const fetchFilmPromoAction = createAsyncThunk<IFilmPromo, undefined, { dispatch: AppDispatch; state: State; extra: AxiosInstance}>
-('films/fetchPromoFilm',
+('FILMS/fetchPromoFilm',
   async (_arg, { extra: api}) => {
     const { data } = await api.get<IFilmPromo>('/promo');
     return data;
@@ -76,7 +76,7 @@ export const fetchFilmPromoAction = createAsyncThunk<IFilmPromo, undefined, { di
 );
 
 export const fetchFilmReviewsAction = createAsyncThunk<IReviewProps[], string,{dispatch: AppDispatch;state: State; extra: AxiosInstance}>
-('film/getReviews',
+('FILM/getReviews',
   async (id, {extra: api}) => {
     const { data } = await api.get<IReviewProps[]>(`/comments/${id}`);
     return data;
@@ -84,14 +84,14 @@ export const fetchFilmReviewsAction = createAsyncThunk<IReviewProps[], string,{d
 );
 
 export const addCommentAction = createAsyncThunk<void, IAddUserReview, {dispatch: AppDispatch;state: State;extra: AxiosInstance}>
-('film/addComment',
+('FILM/addComment',
   async ({filmId, comment, rating}, {extra: api}) => {
     await api.post<IUserReview>(`comments/${filmId}`, {comment, rating});
   },
 );
 
 export const changeFavoriteStatusAction = createAsyncThunk<void, {filmId: string; status: FavoriteStatus},{ dispatch: AppDispatch; state: State; extra: AxiosInstance}>
-('film/changeFavoriteStatus',
+('FILM/changeFavoriteStatus',
   async ({filmId, status}, { extra: api}) => {
     await api.post(`/favorite/${filmId}/${status}`);
   },

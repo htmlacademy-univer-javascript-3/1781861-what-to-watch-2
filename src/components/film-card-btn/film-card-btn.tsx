@@ -1,4 +1,4 @@
-import React, { FormEvent, useEffect } from 'react';
+import { FormEvent, useEffect } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { AppRoute } from '../../enums/app-route';
 import { FavoriteStatus } from '../../enums/favorite-status';
@@ -13,7 +13,7 @@ type FilmCardButtonProps = {
   isReviewButtonVisible?: boolean;
 };
 
-function FilmCardButtons({ isAuth = false, isFavorite = false, id = '', isReviewButtonVisible = false, }: FilmCardButtonProps): React.JSX.Element {
+function FilmCardButtons({ isAuth = false, isFavorite = false, id = '', isReviewButtonVisible = false, }: FilmCardButtonProps): JSX.Element {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const params = useParams();
@@ -40,12 +40,31 @@ function FilmCardButtons({ isAuth = false, isFavorite = false, id = '', isReview
   };
 
   useEffect(() => {
-    if (!id && params.id) {
-      dispatch(fetchFilmByIdAction(params.id));
-      dispatch(fetchSimilarFilmsAction(params.id));
-      dispatch(fetchFilmReviewsAction(params.id));
+    let isMounted = true;
+
+    if (isMounted) {
+      if (!id && params.id) {
+        dispatch(fetchFilmByIdAction(params.id));
+        dispatch(fetchSimilarFilmsAction(params.id));
+        dispatch(fetchFilmReviewsAction(params.id));
+      }
     }
+
+    return () => {
+      isMounted = false;
+    };
   }, [params.id, dispatch, id]);
+
+  useEffect(() => {
+    let isMounted = true;
+
+    if (isMounted) {
+      dispatch(fetchFavoriteFilmsAction());
+    }
+    return () => {
+      isMounted = false;
+    };
+  }, [dispatch]);
 
   return (
     <div className="film-card__buttons">

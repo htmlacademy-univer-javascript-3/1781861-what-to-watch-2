@@ -14,6 +14,7 @@ import { getFilm, getIsLoadingFilm, getReviews } from '../../store/movie-process
 import { getAuthStatus } from '../../store/user-process/user-process.selectors';
 import FilmCardButton from '../../components/film-card-btn/film-card-btn';
 import { getFavoriteFilms } from '../../store/movies-process/movies-process.selectors';
+import PageNotFound from '../page-not-found/page-not-found';
 
 export default function MoviePage(): JSX.Element {
   const { id = '' } = useParams();
@@ -52,7 +53,7 @@ export default function MoviePage(): JSX.Element {
     return <Navigate to={AppRoute.NotFound} />;
   }
 
-  return (
+  return film ? (
     <React.Fragment>
       <section className="film-card film-card--full">
         <div className="film-card__hero">
@@ -87,5 +88,7 @@ export default function MoviePage(): JSX.Element {
         <Footer />
       </div>
     </React.Fragment>
+  ) : (
+    <PageNotFound />
   );
 }

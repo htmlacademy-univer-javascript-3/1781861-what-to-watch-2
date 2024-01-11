@@ -24,14 +24,9 @@ function App(): JSX.Element {
         <Route path={AppRoute.Main}>
           <Route index element={<MainPage />} />
           <Route path={AppRoute.Login} element={<SignIn />} />
-          <Route path={AppRoute.MyList} element={
-            <PrivateRoute authStatus={authStatus}>
-              <MyList />
-            </PrivateRoute>
-          }
-          />
+          <Route path={AppRoute.MyList} element={<PrivateRoute authStatus={authStatus}><MyList /></PrivateRoute>} />
           <Route path={AppRoute.Films}>
-            <Route path=":id" element={<MoviePage />}/>
+            <Route path=":id" element={<MoviePage />} />
             <Route path={`:id${AppRoute.Review}`} element={
               <PrivateRoute authStatus={authStatus}>
                 <AddReview />

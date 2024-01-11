@@ -1,24 +1,31 @@
-import { useNavigate } from 'react-router-dom';
 import Logo from '../../components/logo/logo';
 import Footer from '../../components/footer/footer';
 import UserBlock from '../../components/user-block/user-block';
 import FilmsList from '../../components/film-list/film-list';
 import { useAppSelector } from '../../hook/store';
-import { AuthStatus } from '../../enums/auth-status';
-import { getAuthStatus } from '../../store/user-process/user-process.selectors';
-import { AppRoute } from '../../enums/app-route';
-import { getFavoriteFilms } from '../../store/movies-process/movies-process.selectors';
-
+import { useEffect } from 'react';
+import { fetchFavoriteFilmsAction } from '../../store/api-actions.ts';
+import { useAppDispatch } from '../../hook/store';
+import { State } from '../../types/state.ts';
+import { NameSpace } from '../../enums/name-spaces.ts';
+import { IFilmProps } from '../../types/film-type.ts';
 
 export default function MyList(): JSX.Element {
-  const authStatus = useAppSelector(getAuthStatus);
-  const isAuth = authStatus === AuthStatus.Auth;
-  const navigate = useNavigate();
+  const dispatch = useAppDispatch();
+  const getFavoriteFilms = (state: Pick<State, NameSpace.Films>): IFilmProps[] => state[NameSpace.Films].favoriteFilms;
   const favoriteFilms = useAppSelector(getFavoriteFilms);
 
-  if (!isAuth) {
-    navigate(AppRoute.Login);
-  }
+  useEffect(() => {
+    let isMounted = true;
+
+    if (isMounted) {
+      dispatch(fetchFavoriteFilmsAction());
+    }
+
+    return () => {
+      isMounted = false;
+    };
+  }, [dispatch]);
 
   return (
     <div className="user-page">
